@@ -1,0 +1,61 @@
+/* src/styles/EventsExport.css */
+.ep-exportBox {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.82);
+}
+
+.ep-exportTitle {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.ep-exportHint,
+.ep-exportStatus {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+.ep-exportSync {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #334155;
+  cursor: pointer;
+}
+
+.ep-exportSync input {
+  margin-top: 2px;
+}
+
+.ep-exportButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.ep-exportButtons .ep-btn {
+  width: 100%;
+  min-height: 42px;
+}
+
+.ep-exportStatus {
+  color: #0369a1;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .ep-exportButtons {
+    grid-template-columns: 1fr;
+  }
+}

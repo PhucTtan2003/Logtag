@@ -1,0 +1,18 @@
+.lt5-chart-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.lt5-chart-inner {
+  width: 100%;
+  max-width: 1000px;   /* Chart rộng tối đa */
+  height: 420px;
+  padding: 12px;
+}
+
+.lt5-chart-inner canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}

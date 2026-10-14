@@ -1,0 +1,14 @@
+.grid-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.box {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Mỗi box chiếm đều không gian */
+  height: auto; /* Cho cao vừa với nội dung */
+}

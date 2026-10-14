@@ -1,0 +1,267 @@
+SendNotification.css
+/* ================== Popup Backdrop ================== */
+.send-popup-container {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15,23,42,.45), rgba(2,6,23,.35));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: max(12px, env(safe-area-inset-top));
+  z-index: 9999;
+}
+
+/* ================== Card (Glass + Shadow) ================== */
+.send-card {
+  width: min(92vw, 560px);
+  max-height: min(92vh, 860px);
+  padding: clamp(18px, 2.2vw, 26px);
+  border-radius: 20px;
+  background: rgba(255,255,255,.86);
+  border: 1px solid rgba(59,130,246,.25);
+  box-shadow:
+    0 18px 50px rgba(15, 23, 42, .18),
+    0 0 34px rgba(59,130,246,.25);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+  overflow: auto;
+  transition: transform .25s ease, box-shadow .35s ease;
+  animation: popup-fade .3s ease-out;
+}
+
+.send-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 22px 60px rgba(15, 23, 42, .22),
+    0 0 40px rgba(59,130,246,.30);
+}
+
+/* ================== Header ================== */
+.send-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: clamp(14px, 2.2vw, 22px);
+}
+
+.send-header h2 {
+  font-size: clamp(18px, 2.2vw, 26px);
+  font-weight: 800;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #2563eb, #22c1c3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.send-header h2 .icon { font-size: 1.2em; animation: pulse 1.6s infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .send-header h2 .icon { animation: none; }
+}
+
+.close-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-size: clamp(20px, 2.4vw, 26px);
+  color: #6b7280;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 10px;
+  transition: transform .2s ease, color .2s ease, background .2s ease;
+}
+.close-btn:hover { color: #ef4444; transform: rotate(90deg) scale(1.05); }
+.close-btn:focus-visible { outline: 3px solid rgba(37,99,235,.35); }
+
+/* ================== Form ================== */
+.send-group { margin-bottom: clamp(12px, 2vw, 18px); }
+.send-group label {
+  display: block;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+  font-size: clamp(13px, 1.6vw, 15px);
+}
+
+.send-input,
+.send-textarea {
+  width: 100%;
+  padding: clamp(10px, 1.6vw, 14px) clamp(12px, 1.8vw, 16px);
+  border: 1px solid #c4d9ff;
+  border-radius: 12px;
+  background: #fff;
+  font-size: clamp(14px, 1.8vw, 15px);
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.send-textarea { min-height: 120px; resize: none; }
+
+.send-input:focus,
+.send-textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, .20);
+  outline: none;
+}
+
+/* react-select wrapper spacing (nằm trong TSX hiện tại) */
+.mb-4 { margin-bottom: 1rem; }
+/* Toggle hàng “Gửi cho tất cả” – tăng touch target */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.gap-2 { gap: 8px; }
+.mb-3 { margin-bottom: 12px; }
+.flex input[type="checkbox"] {
+  width: 20px; height: 20px; accent-color: #2563eb; cursor: pointer;
+}
+
+/* ================== Actions ================== */
+.send-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: clamp(16px, 2.2vw, 24px);
+}
+
+.send-btn {
+  min-width: 124px;
+  padding: clamp(10px, 1.8vw, 12px) clamp(16px, 2.2vw, 20px);
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .25s ease, background .25s ease;
+  will-change: transform;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.send-btn.cancel { background: #e5e7eb; color: #111827; }
+.send-btn.cancel:hover { background: #d1d5db; transform: translateY(-1px); }
+
+.send-btn.primary {
+  color: #fff;
+  background: linear-gradient(92deg, #2563eb, #22c1c3);
+  box-shadow: 0 6px 18px rgba(34,193,195,.45);
+}
+.send-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(34,193,195,.5);
+}
+
+/* Ripple */
+.send-btn.primary::after {
+  content: "";
+  position: absolute; inset: 50% auto auto 50%;
+  width: 0; height: 0; border-radius: 999px;
+  background: rgba(255,255,255,.35);
+  transform: translate(-50%, -50%);
+  transition: width .6s ease, height .6s ease;
+}
+.send-btn.primary:hover::after { width: 320%; height: 320%; }
+
+/* ================== Animations ================== */
+@keyframes popup-fade {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.fade-out { animation: fadeOut .28s ease-in forwards; }
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(.96); }
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%     { transform: scale(1.15); opacity: .75; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .send-card, .send-btn, .close-btn { transition: none !important; }
+}
+
+/* ================== Breakpoints ================== */
+/* ≥ 1440px: tăng nhẹ mật độ */
+@media (min-width: 1440px) {
+  .send-card { width: 600px; }
+}
+
+/* Tablet (≥768px & ≤1024px): co giãn hợp lý */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .send-card { width: min(92vw, 560px); }
+  .send-actions { justify-content: flex-end; }
+}
+
+/* Mobile (≤480px): fullscreen & tối ưu chạm */
+@media (max-width: 480px) {
+  .send-popup-container {
+    padding: 0;
+    background: rgba(2,6,23,.6);
+  }
+  .send-card {
+    width: 100vw;
+    height: 100dvh;         /* dynamic viewport for mobile */
+    max-height: 100dvh;
+    border-radius: 0 !important;
+    box-shadow: none;
+  }
+  .send-header { padding-top: max(10px, env(safe-area-inset-top)); }
+  .send-btn { min-width: 44px; } /* WCAG touch target */
+}
+
+/* Siêu nhỏ (≤360px): chống vỡ hàng */
+@media (max-width: 360px) {
+  .send-actions { gap: 8px; }
+  .send-btn { min-width: 110px; padding: 10px 12px; }
+  .send-header h2 { gap: 8px; }
+}
+
+/* Toast container: góc phải trên, stack nhiều cái vẫn đẹp */
+.notify-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 3000;
+}
+
+/* Toast card */
+.notify-popup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 260px;
+  max-width: 360px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  font-size: 14px;
+  animation: slideDown 0.25s ease-out;
+}
+
+.notify-popup.success { border-left: 5px solid #28a745; }
+.notify-popup.error   { border-left: 5px solid #dc3545; }
+
+.notify-popup span {
+  flex: 1;
+  color: #333;
+}
+
+.notify-popup button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

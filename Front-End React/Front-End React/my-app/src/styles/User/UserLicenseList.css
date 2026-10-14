@@ -1,0 +1,124 @@
+/* ==============================
+   WRAPPER
+============================== */
+.lic-wrapper {
+  padding: 20px;
+  font-family: "Inter", sans-serif;
+}
+
+.lic-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ==============================
+   GRID LAYOUT
+============================== */
+.lic-grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 600px) {
+  .lic-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .lic-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==============================
+   CARD STYLE
+============================== */
+.lic-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: 0.2s ease;
+}
+
+.lic-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ==============================
+   HEADER
+============================== */
+.lic-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.lic-code {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.lic-plan {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Các màu theo PLAN */
+.lic-plan-basic {
+  background: #3b82f6;
+}
+
+.lic-plan-pro {
+  background: #10b981;
+}
+
+.lic-plan-sms {
+  background: #f59e0b;
+}
+
+.lic-plan-premium {
+  background: #8b5cf6;
+}
+
+/* ==============================
+   ROW
+============================== */
+.lic-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.lic-label {
+  color: #6b7280;
+}
+
+/* ==============================
+   FEATURES
+============================== */
+.lic-features {
+  font-weight: 500;
+  color: #111827;
+}
+
+/* ==============================
+   NOTES
+============================== */
+.lic-notes {
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  font-size: 13px;
+}

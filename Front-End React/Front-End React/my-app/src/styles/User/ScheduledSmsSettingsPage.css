@@ -1,0 +1,797 @@
+.scheduled-sms {
+  width: 100%;
+  color: #0f172a;
+}
+
+.scheduled-sms * {
+  box-sizing: border-box;
+}
+
+.scheduled-sms__hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  border: 1px solid rgba(59, 130, 246, 0.16);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.22), transparent 36%),
+    linear-gradient(135deg, #eef6ff 0%, #ffffff 52%, #f8fbff 100%);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
+.scheduled-sms__hero::before {
+  content: "";
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  right: -90px;
+  bottom: -130px;
+  border-radius: 999px;
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.scheduled-sms__hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+.scheduled-sms__badge {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.scheduled-sms__badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.14);
+}
+
+.scheduled-sms__hero h2 {
+  margin: 14px 0 8px;
+  font-size: clamp(24px, 2.8vw, 36px);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: #0f172a;
+}
+
+.scheduled-sms__hero p {
+  margin: 0;
+  max-width: 720px;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.scheduled-sms__hero-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.scheduled-sms__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.scheduled-sms__stat-card {
+  min-height: 94px;
+  padding: 18px;
+  border: 1px solid #e5eefb;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.scheduled-sms__stat-card span {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.scheduled-sms__stat-card strong {
+  display: block;
+  margin-top: 8px;
+  color: #0f172a;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.scheduled-sms__grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  align-items: start;
+}
+
+.scheduled-sms__sidebar,
+.scheduled-sms__form-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.07);
+}
+
+.scheduled-sms__sidebar {
+  padding: 16px;
+  position: sticky;
+  top: 16px;
+}
+
+.scheduled-sms__form-card {
+  padding: 22px;
+  min-width: 0;
+}
+
+.scheduled-sms__panel-head,
+.scheduled-sms__form-top,
+.scheduled-sms__section-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.scheduled-sms__panel-head h3,
+.scheduled-sms__form-top h3,
+.scheduled-sms__section-title h4 {
+  margin: 0;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.scheduled-sms__panel-head h3 {
+  font-size: 18px;
+}
+
+.scheduled-sms__form-top h3 {
+  margin-top: 4px;
+  font-size: 24px;
+}
+
+.scheduled-sms__section-title h4 {
+  font-size: 17px;
+}
+
+.scheduled-sms__panel-head p,
+.scheduled-sms__form-top p,
+.scheduled-sms__section-title p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.scheduled-sms__section-label {
+  display: inline-flex;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.scheduled-sms__search {
+  margin: 14px 0;
+}
+
+.scheduled-sms__search input,
+.scheduled-sms__field input {
+  width: 100%;
+  height: 46px;
+  border: 1px solid #dbe4f0;
+  border-radius: 15px;
+  outline: none;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 0 14px;
+  transition: 0.18s ease;
+}
+
+.scheduled-sms__search input:focus,
+.scheduled-sms__field input:focus {
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.scheduled-sms__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 560px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.scheduled-sms__list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.scheduled-sms__list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #cbd5e1;
+}
+
+.scheduled-sms__item {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 14px;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.scheduled-sms__item:hover {
+  transform: translateY(-1px);
+  border-color: #93c5fd;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.scheduled-sms__item.is-active {
+  border-color: #2563eb;
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.14);
+}
+
+.scheduled-sms__item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.scheduled-sms__serial {
+  min-width: 0;
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scheduled-sms__status {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 54px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.scheduled-sms__status.is-on {
+  color: #047857;
+  background: #dcfce7;
+}
+
+.scheduled-sms__status.is-off {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.scheduled-sms__item-times {
+  margin-top: 10px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.scheduled-sms__item-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 10px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.scheduled-sms__empty {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  min-height: 230px;
+  padding: 24px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 20px;
+  background: #f8fafc;
+  color: #64748b;
+}
+
+.scheduled-sms__empty-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 10px;
+  border-radius: 18px;
+  background: #e0f2fe;
+  font-size: 24px;
+}
+
+.scheduled-sms__empty strong {
+  display: block;
+  color: #0f172a;
+  font-size: 15px;
+}
+
+.scheduled-sms__empty span {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.scheduled-sms__form-section {
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid #e8eef7;
+  border-radius: 20px;
+  background: #fbfdff;
+}
+
+.scheduled-sms__field {
+  display: block;
+}
+
+.scheduled-sms__field span {
+  display: block;
+  margin-bottom: 8px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.scheduled-sms__field small {
+  display: block;
+  margin-top: 8px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.scheduled-sms__counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-width: 58px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.scheduled-sms__quick-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.scheduled-sms__quick-times button {
+  border: 1px solid #dbe4f0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #334155;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.scheduled-sms__quick-times button:hover:not(:disabled) {
+  border-color: #3b82f6;
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+.scheduled-sms__quick-times button.is-selected,
+.scheduled-sms__quick-times button:disabled {
+  cursor: not-allowed;
+  border-color: #bfdbfe;
+  background: #dbeafe;
+  color: #1d4ed8;
+  opacity: 0.9;
+}
+
+.scheduled-sms__time-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.scheduled-sms__chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  min-height: 48px;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+}
+
+.scheduled-sms__hint {
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.scheduled-sms__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 9px 9px 13px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+}
+
+.scheduled-sms__chip button {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.scheduled-sms__chip button:hover {
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.scheduled-sms__summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.scheduled-sms__summary > div {
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.scheduled-sms__summary span {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.scheduled-sms__summary strong {
+  display: block;
+  margin-top: 7px;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scheduled-sms__notice {
+  margin-top: 16px;
+  padding: 13px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.scheduled-sms__notice--ok {
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  color: #047857;
+}
+
+.scheduled-sms__notice--error {
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.scheduled-sms__notice--info {
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.scheduled-sms__notice--warn {
+  border: 1px solid #fde68a;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.scheduled-sms__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.scheduled-sms__btn {
+  min-height: 44px;
+  border: 0;
+  border-radius: 14px;
+  padding: 0 16px;
+  color: #0f172a;
+  background: #e2e8f0;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.scheduled-sms__btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.12);
+}
+
+.scheduled-sms__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.scheduled-sms__btn--primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+}
+
+.scheduled-sms__btn--soft {
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+.scheduled-sms__btn--dark {
+  color: #ffffff;
+  background: #0f172a;
+}
+
+.scheduled-sms__switch {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #ffffff;
+  cursor: pointer;
+  user-select: none;
+}
+
+.scheduled-sms__switch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scheduled-sms__switch-ui {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: #cbd5e1;
+  transition: 0.18s ease;
+}
+
+.scheduled-sms__switch-ui::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #ffffff;
+  transition: 0.18s ease;
+  box-shadow: 0 4px 8px rgba(15, 23, 42, 0.18);
+}
+
+.scheduled-sms__switch input:checked + .scheduled-sms__switch-ui {
+  background: #22c55e;
+}
+
+.scheduled-sms__switch input:checked + .scheduled-sms__switch-ui::after {
+  transform: translateX(20px);
+}
+
+.scheduled-sms__switch b {
+  color: #334155;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+@media (max-width: 1100px) {
+  .scheduled-sms__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .scheduled-sms__sidebar {
+    position: relative;
+    top: auto;
+  }
+
+  .scheduled-sms__summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .scheduled-sms__hero {
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .scheduled-sms__hero-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .scheduled-sms__hero-actions .scheduled-sms__btn {
+    flex: 1;
+  }
+
+  .scheduled-sms__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .scheduled-sms__form-card,
+  .scheduled-sms__sidebar {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .scheduled-sms__form-top {
+    flex-direction: column;
+  }
+
+  .scheduled-sms__switch {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .scheduled-sms__time-row {
+    grid-template-columns: 1fr;
+  }
+
+  .scheduled-sms__summary {
+    grid-template-columns: 1fr;
+  }
+
+  .scheduled-sms__actions {
+    flex-direction: column;
+  }
+
+  .scheduled-sms__actions .scheduled-sms__btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .scheduled-sms__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .scheduled-sms__hero h2 {
+    font-size: 24px;
+  }
+}
+/* =========================================================
+   FIX KHI CHẠY TRONG DRAWER / MODAL BÊN PHẢI
+   ========================================================= */
+
+.sms-drawer__body {
+  overflow-x: hidden !important;
+}
+
+.sms-drawer__body .scheduled-sms {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 16px;
+}
+
+.sms-drawer__body .scheduled-sms__hero {
+  display: none;
+}
+
+.sms-drawer__body .scheduled-sms__stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sms-drawer__body .scheduled-sms__grid {
+  grid-template-columns: 1fr !important;
+  gap: 16px;
+}
+
+.sms-drawer__body .scheduled-sms__sidebar {
+  position: relative;
+  top: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+.sms-drawer__body .scheduled-sms__form-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.sms-drawer__body .scheduled-sms__summary {
+  grid-template-columns: 1fr;
+}
+
+.sms-drawer__body .scheduled-sms__time-row {
+  grid-template-columns: 1fr;
+}
+
+.sms-drawer__body .scheduled-sms__actions {
+  flex-direction: column;
+}
+
+.sms-drawer__body .scheduled-sms__actions .scheduled-sms__btn {
+  width: 100%;
+}
+
+.sms-drawer__body .scheduled-sms__form-top {
+  flex-direction: column;
+}
+
+.sms-drawer__body .scheduled-sms__switch {
+  width: 100%;
+  justify-content: space-between;
+}

@@ -1,0 +1,713 @@
+/* =========================
+   Drawer override
+   ========================= */
+.sms-drawer-backdrop .threshold-drawer.sms-drawer {
+  width: min(1180px, calc(100vw - 32px)) !important;
+  max-width: 1180px !important;
+  height: min(88vh, 860px) !important;
+  max-height: calc(100vh - 32px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  border-radius: 30px !important;
+}
+
+.threshold-drawer .sms-drawer__header {
+  flex: 0 0 auto;
+  min-height: 76px;
+  padding: 18px 26px !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(18px);
+}
+
+.threshold-drawer .sms-drawer__title {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+}
+
+.threshold-drawer .sms-drawer__body,
+.threshold-drawer__body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  overflow: auto !important;
+  background: #f6f9ff !important;
+}
+
+/* =========================
+   Main page inside drawer
+   ========================= */
+.uth-page {
+  width: 100%;
+  min-height: auto;
+  padding: 22px;
+  color: #0f172a;
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.1), transparent 34%),
+    linear-gradient(135deg, #f8fbff 0%, #eef5ff 52%, #f8fafc 100%);
+}
+
+.uth-page * {
+  box-sizing: border-box;
+}
+
+.uth-page--compact {
+  min-height: 100%;
+}
+
+.uth-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px;
+  border-radius: 24px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(56, 189, 248, 0.34), transparent 34%),
+    linear-gradient(135deg, #0f172a 0%, #1d4ed8 62%, #0891b2 100%);
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.16);
+  overflow: hidden;
+}
+
+.uth-eyebrow {
+  margin: 0 0 7px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #bfdbfe;
+}
+
+.uth-head h1 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.uth-head p {
+  max-width: 720px;
+  margin: 9px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.uth-refresh {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  color: #0f172a;
+  background: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.2);
+  transition: 0.18s ease;
+}
+
+.uth-refresh:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.uth-refresh:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================
+   Summary + search
+   ========================= */
+.uth-summary {
+  display: grid;
+  grid-template-columns: 150px 150px 150px minmax(240px, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.uth-summary-card,
+.uth-search {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+}
+
+.uth-summary-card {
+  padding: 16px;
+}
+
+.uth-summary-card span,
+.uth-search label {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.uth-summary-card b {
+  display: block;
+  color: #0f172a;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.uth-summary-card.is-ok b {
+  color: #059669;
+}
+
+.uth-summary-card.is-warn b {
+  color: #d97706;
+}
+
+.uth-search {
+  padding: 14px;
+}
+
+.uth-search input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  outline: none;
+  border-radius: 14px;
+  padding: 0 14px;
+  background: #fff;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.uth-search input:focus {
+  border-color: rgba(37, 99, 235, 0.72);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+/* =========================
+   Empty / loading
+   ========================= */
+.uth-state,
+.uth-empty {
+  margin-top: 16px;
+  padding: 34px;
+  text-align: center;
+  border-radius: 24px;
+  border: 1px dashed rgba(148, 163, 184, 0.42);
+  background: rgba(255, 255, 255, 0.86);
+  color: #64748b;
+}
+
+.uth-empty-icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.uth-empty h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.uth-empty p {
+  max-width: 520px;
+  margin: 10px auto 0;
+  line-height: 1.6;
+}
+
+/* =========================
+   Device cards
+   ========================= */
+.uth-device-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.uth-device-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(420px, 1.1fr);
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  padding: 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95));
+  box-shadow: 0 16px 38px rgba(15, 23, 42, 0.08);
+}
+
+.uth-device-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(90deg, #2563eb, #06b6d4, #22c55e);
+}
+
+.uth-device-main {
+  min-width: 0;
+}
+
+.uth-device-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.uth-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.uth-device-title h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  word-break: break-word;
+}
+
+.uth-status {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid rgba(217, 119, 6, 0.2);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.uth-status.is-active {
+  color: #047857;
+  background: #d1fae5;
+  border-color: rgba(5, 150, 105, 0.22);
+}
+
+.uth-device-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.uth-device-meta div {
+  min-width: 0;
+  padding: 13px;
+  border-radius: 16px;
+  background: rgba(241, 245, 249, 0.92);
+}
+
+.uth-device-meta span {
+  display: block;
+  margin-bottom: 5px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.uth-device-meta b {
+  display: block;
+  color: #0f172a;
+  font-size: 14px;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+/* =========================
+   Threshold inputs
+   ========================= */
+.uth-threshold-panel {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(170px, 1fr)) auto;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.uth-field {
+  min-width: 0;
+  padding: 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: #fff;
+}
+
+.uth-field--high {
+  box-shadow: inset 4px 0 0 rgba(239, 68, 68, 0.82);
+}
+
+.uth-field--low {
+  box-shadow: inset 4px 0 0 rgba(37, 99, 235, 0.82);
+}
+
+.uth-field label {
+  display: block;
+  margin-bottom: 10px;
+  color: #334155;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.uth-input {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 15px;
+  background: #f8fafc;
+}
+
+.uth-input input {
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  padding: 0 12px;
+  color: #0f172a;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.uth-input span {
+  flex: 0 0 auto;
+  padding: 0 13px;
+  color: #64748b;
+  font-weight: 900;
+}
+
+.uth-field small {
+  display: block;
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.uth-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 120px;
+}
+
+.uth-btn {
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-radius: 15px;
+  padding: 0 16px;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.18s ease;
+}
+
+.uth-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.uth-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.uth-btn--primary {
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  box-shadow: 0 12px 26px rgba(37, 99, 235, 0.22);
+}
+
+.uth-btn--ghost {
+  color: #334155;
+  background: #e2e8f0;
+}
+
+/* =========================================================
+   Toast cục bộ cho màn Cài ngưỡng
+   - Hỗ trợ cả markup mới: .uth-toast-stack/.uth-toast
+   - Và markup cũ dùng Toast global: .uth-page > .toast
+   - Không tạo overlay ngang, không chặn click toàn drawer.
+========================================================= */
+.uth-page .uth-toast-stack,
+.uth-toast-stack {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  z-index: 130000 !important;
+  width: min(430px, calc(100vw - 32px)) !important;
+  display: grid !important;
+  gap: 10px !important;
+  pointer-events: none !important;
+}
+
+.uth-page .uth-toast,
+.uth-toast,
+.threshold-drawer .toast,
+.threshold-drawer__body .toast,
+.uth-page > .toast,
+.uth-page .toast {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  z-index: 130001 !important;
+  width: min(430px, calc(100vw - 32px)) !important;
+  min-height: 64px !important;
+  max-width: calc(100vw - 32px) !important;
+  padding: 14px 14px !important;
+  border-radius: 20px !important;
+  display: grid !important;
+  grid-template-columns: 36px minmax(0, 1fr) 34px !important;
+  align-items: center !important;
+  gap: 10px !important;
+  color: #0f172a !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  border: 1px solid rgba(148, 163, 184, 0.24) !important;
+  box-shadow: 0 24px 58px rgba(15, 23, 42, 0.18) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  pointer-events: auto !important;
+  overflow: hidden !important;
+  animation: uthToastDrop .18s ease-out !important;
+}
+
+.uth-page .uth-toast::before,
+.uth-toast::before,
+.threshold-drawer .toast::before,
+.threshold-drawer__body .toast::before,
+.uth-page > .toast::before,
+.uth-page .toast::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 5px !important;
+  background: linear-gradient(180deg, #0ea5e9, #6366f1) !important;
+}
+
+.uth-toast--success::before,
+.threshold-drawer .toast.success::before,
+.threshold-drawer__body .toast.success::before,
+.uth-page .toast.success::before {
+  background: linear-gradient(180deg, #22c55e, #06b6d4) !important;
+}
+
+.uth-toast--error::before,
+.threshold-drawer .toast.error::before,
+.threshold-drawer__body .toast.error::before,
+.uth-page .toast.error::before {
+  background: linear-gradient(180deg, #ef4444, #f97316) !important;
+}
+
+.uth-toast--info::before,
+.threshold-drawer .toast.info::before,
+.threshold-drawer__body .toast.info::before,
+.uth-page .toast.info::before {
+  background: linear-gradient(180deg, #0ea5e9, #6366f1) !important;
+}
+
+.uth-page .uth-toast__icon,
+.uth-toast__icon {
+  width: 36px !important;
+  height: 36px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 14px !important;
+  background: #f1f5f9 !important;
+  font-size: 18px !important;
+}
+
+.uth-page .uth-toast__body,
+.uth-toast__body {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: 3px !important;
+}
+
+.uth-page .uth-toast__body b,
+.uth-toast__body b {
+  font-size: 13px !important;
+  line-height: 1.15 !important;
+  font-weight: 950 !important;
+  color: #0f172a !important;
+}
+
+.uth-page .uth-toast__body span,
+.uth-toast__body span,
+.threshold-drawer .toast span,
+.threshold-drawer__body .toast span,
+.uth-page .toast span {
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  font-weight: 750 !important;
+  color: #475569 !important;
+  word-break: break-word !important;
+}
+
+.uth-page .uth-toast__close,
+.uth-toast__close,
+.threshold-drawer .toast button,
+.threshold-drawer__body .toast button,
+.uth-page .toast button {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  display: grid !important;
+  place-items: center !important;
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  cursor: pointer !important;
+}
+
+.uth-page .uth-toast__close:hover,
+.uth-toast__close:hover,
+.threshold-drawer .toast button:hover,
+.threshold-drawer__body .toast button:hover,
+.uth-page .toast button:hover {
+  background: #e2e8f0 !important;
+}
+
+/* Nếu global UserPage còn tạo toast-overlay/toast-center bên trong drawer thì vô hiệu hóa overlay ở màn này */
+.threshold-drawer .toast-overlay,
+.threshold-drawer__body .toast-overlay,
+.uth-page .toast-overlay,
+.threshold-drawer .toast-center,
+.threshold-drawer__body .toast-center,
+.uth-page .toast-center {
+  position: static !important;
+  inset: auto !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  background: transparent !important;
+  pointer-events: none !important;
+  display: contents !important;
+}
+
+@keyframes uthToastDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 1100px) {
+  .uth-summary {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .uth-search {
+    grid-column: 1 / -1;
+  }
+
+  .uth-device-card {
+    grid-template-columns: 1fr;
+  }
+
+  .uth-threshold-panel {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  }
+
+  .uth-actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 720px) {
+  .sms-drawer-backdrop .threshold-drawer.sms-drawer {
+    width: calc(100vw - 14px) !important;
+    height: calc(100vh - 14px) !important;
+    border-radius: 22px !important;
+  }
+
+  .threshold-drawer .sms-drawer__header {
+    padding: 14px 16px !important;
+  }
+
+  .threshold-drawer .sms-drawer__title {
+    font-size: 19px;
+  }
+
+  .uth-page {
+    padding: 14px;
+  }
+
+  .uth-head {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+  }
+
+  .uth-refresh {
+    width: 100%;
+  }
+
+  .uth-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .uth-device-meta,
+  .uth-threshold-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .uth-actions {
+    flex-direction: column;
+  }
+
+  .uth-page .uth-toast-stack,
+  .uth-toast-stack {
+    top: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+    width: auto !important;
+  }
+
+  .uth-page .uth-toast,
+  .uth-toast,
+  .threshold-drawer .toast,
+  .threshold-drawer__body .toast,
+  .uth-page > .toast,
+  .uth-page .toast {
+    top: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}

@@ -1,0 +1,57 @@
+.warranty-container {
+  padding: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-in-out both;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.warranty-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.loading-text,
+.no-data-text {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(145deg, #e0f2fe, #fff);
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0c4a6e;
+  margin-bottom: 8px;
+}
+
+.card-body p {
+  margin: 4px 0;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,517 @@
+/* =========================================================
+   RegisterDevicePanel.css — Smart Device Onboarding
+   Scope: .rdx-* only, không đụng modal container / confirm-box
+========================================================= */
+
+.rdx,
+.rdx * {
+  box-sizing: border-box;
+}
+
+.rdx {
+  --rdx-ink: #0f172a;
+  --rdx-muted: #64748b;
+  --rdx-soft: #f8fbff;
+  --rdx-card: rgba(255, 255, 255, 0.94);
+  --rdx-line: rgba(148, 163, 184, 0.24);
+  --rdx-blue: #2563eb;
+  --rdx-sky: #0ea5e9;
+  --rdx-cyan: #22c1c3;
+  --rdx-green: #10b981;
+  --rdx-red: #ef4444;
+  --rdx-radius: 28px;
+  width: 100%;
+  color: var(--rdx-ink);
+  font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.rdx-card {
+  position: relative;
+  width: min(980px, 100%);
+  margin: 0 auto;
+  padding: clamp(18px, 2.4vw, 28px);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(14, 165, 233, 0.16), transparent 34%),
+    radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.11), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,251,255,.94));
+  border: 1px solid rgba(191, 219, 254, 0.75);
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.14);
+  overflow: hidden;
+}
+
+.rdx-card::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 26px;
+  border: 1px solid rgba(37, 99, 235, 0.07);
+  pointer-events: none;
+}
+
+.rdx-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.rdx-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.86);
+  color: #334155;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  transition: transform .16s ease, color .16s ease, background .16s ease;
+}
+
+.rdx-close:hover {
+  transform: translateY(-1px) rotate(4deg);
+  color: #dc2626;
+  background: #fff;
+}
+
+.rdx-hero {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding-right: 48px;
+  margin-bottom: 20px;
+}
+
+.rdx-hero-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--rdx-blue), var(--rdx-cyan));
+  box-shadow: 0 18px 38px rgba(37, 99, 235, 0.24);
+}
+
+.rdx-kicker {
+  width: fit-content;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 11px;
+  border-radius: 999px;
+  color: #075985;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.rdx-hero h2 {
+  margin: 10px 0 7px;
+  color: var(--rdx-ink);
+  font-size: clamp(25px, 2.4vw, 38px);
+  line-height: 1.03;
+  letter-spacing: -0.045em;
+  font-weight: 950;
+}
+
+.rdx-hero p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--rdx-muted);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+.rdx-form {
+  display: block;
+}
+
+.rdx-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, .78fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.rdx-panel {
+  border-radius: var(--rdx-radius);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(226, 232, 240, 0.88);
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08);
+}
+
+.rdx-panel-main {
+  padding: clamp(15px, 1.8vw, 20px);
+}
+
+.rdx-panel-head {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 16px;
+}
+
+.rdx-panel-mark {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  color: var(--rdx-blue);
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+}
+
+.rdx-panel-head h3 {
+  margin: 0;
+  color: var(--rdx-ink);
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 950;
+}
+
+.rdx-panel-head p {
+  margin: 5px 0 0;
+  color: var(--rdx-muted);
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+.rdx-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.rdx-field {
+  display: grid;
+  gap: 8px;
+}
+
+.rdx-field > span,
+.rdx-team-copy > span,
+.rdx-preview > span {
+  color: #334155;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.rdx-input-wrap,
+.rdx-team-input {
+  min-height: 52px;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.96);
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+
+.rdx-input-wrap:focus-within,
+.rdx-team-input:focus-within {
+  transform: translateY(-1px);
+  border-color: rgba(37, 99, 235, 0.58);
+  box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.12), inset 0 1px 0 rgba(255,255,255,.96);
+}
+
+.rdx-input-wrap svg,
+.rdx-team-input svg {
+  color: #64748b;
+}
+
+.rdx-input-wrap input,
+.rdx-team-input input {
+  width: 100%;
+  min-width: 0;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--rdx-ink);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.rdx-input-wrap input::placeholder,
+.rdx-team-input input::placeholder {
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.rdx-input-wrap input:disabled,
+.rdx-team-input input:disabled {
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.rdx-field small,
+.rdx-team-copy small {
+  color: var(--rdx-muted);
+  font-size: 12px;
+  line-height: 1.38;
+  font-weight: 700;
+}
+
+.rdx-field small.is-danger {
+  color: #dc2626;
+}
+
+.rdx-message {
+  min-height: 46px;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 850;
+}
+
+.rdx-message-ok {
+  color: #047857;
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+}
+
+.rdx-message-err {
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+.rdx-message-info {
+  color: #075985;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+}
+
+.rdx-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.rdx-btn {
+  min-height: 46px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 950;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform .16s ease, box-shadow .16s ease, opacity .16s ease;
+}
+
+.rdx-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.rdx-btn:disabled {
+  opacity: .56;
+  cursor: not-allowed;
+}
+
+.rdx-btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--rdx-blue), var(--rdx-sky));
+  box-shadow: 0 16px 32px rgba(37, 99, 235, 0.24);
+}
+
+.rdx-btn-soft {
+  color: #334155;
+  background: #eef2f7;
+  box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.95);
+}
+
+.rdx-side {
+  display: grid;
+  gap: 13px;
+  align-content: start;
+  padding: 14px;
+  background:
+    radial-gradient(circle at 0 0, rgba(14, 165, 233, 0.11), transparent 36%),
+    rgba(255, 255, 255, 0.72);
+}
+
+.rdx-team-card {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 14px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.86);
+  border: 1px solid rgba(226, 232, 240, .9);
+}
+
+.rdx-team-icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 19px;
+  color: #0f766e;
+  background: #ccfbf1;
+  border: 1px solid #99f6e4;
+}
+
+.rdx-team-copy {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.rdx-team-input {
+  grid-template-columns: 1fr;
+  min-height: 50px;
+}
+
+.rdx-preview {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #0f172a, #1e3a8a);
+  color: #fff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+}
+
+.rdx-preview > span {
+  color: #bfdbfe;
+}
+
+.rdx-preview-row {
+  min-height: 42px;
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  padding: 9px 10px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.rdx-preview-row small {
+  color: rgba(255,255,255,.65);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.rdx-preview-row b {
+  min-width: 0;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.25;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rdx-spin {
+  animation: rdxSpin 1s linear infinite;
+}
+
+@keyframes rdxSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 880px) {
+  .rdx-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .rdx-side {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .rdx-card {
+    border-radius: 26px;
+    padding: 16px;
+  }
+
+  .rdx-close {
+    top: 12px;
+    right: 12px;
+  }
+
+  .rdx-hero {
+    grid-template-columns: 1fr;
+    padding-right: 48px;
+    gap: 12px;
+  }
+
+  .rdx-hero-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 19px;
+  }
+
+  .rdx-grid-2,
+  .rdx-side {
+    grid-template-columns: 1fr;
+  }
+
+  .rdx-panel,
+  .rdx-panel-main {
+    border-radius: 22px;
+  }
+
+  .rdx-panel-head {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  .rdx-panel-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 16px;
+  }
+
+  .rdx-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .rdx-btn {
+    width: 100%;
+  }
+}

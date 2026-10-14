@@ -1,0 +1,139 @@
+/* ============== Overlay ============== */
+.emp-sb__overlay{
+  position:fixed; inset:0; background:rgba(15,23,42,.35); opacity:0;
+  pointer-events:none; transition:opacity .2s ease; z-index:9998;
+}
+.emp-sb__overlay.show{ opacity:1; pointer-events:auto; }
+
+/* ============== Drawer / Rail ============== */
+.emp-sb__drawer{
+  position:fixed; inset:0 auto 0 0; width:300px; max-width:88vw;
+  background: linear-gradient(180deg, #ffffff, #f7f9ff);
+  box-shadow: 2px 0 28px rgba(15, 23, 42, .18);
+  transform:translateX(-102%); transition:transform .22s ease;
+  z-index:9999; display:flex; flex-direction:column;
+  border-right:1px solid #e7eefb;
+}
+.emp-sb__drawer.open{ transform:translateX(0); }
+
+/* Desktop: luôn hiện dạng “docked rail” bên trái, không cần overlay */
+@media (min-width: 1024px){
+  .emp-sb__overlay{ display:none; }
+  .emp-sb__drawer{
+    position:sticky; top:0; height:100dvh; transform:none !important;
+    width:280px; max-width:280px;
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark){
+  .emp-sb__overlay{ background:rgba(0,0,0,.45); }
+  .emp-sb__drawer{
+    background: linear-gradient(180deg, #0b1220, #0e1424);
+    border-right:1px solid rgba(255,255,255,.06);
+    box-shadow: 2px 0 30px rgba(0,0,0,.32);
+  }
+  .emp-sb__head{ border-bottom-color: rgba(255,255,255,.08); }
+  .emp-sb__nav{ background: transparent; }
+  .emp-sb__item{ background: rgba(255,255,255,.04); color:#e6e9f2; }
+  .emp-sb__item:hover{ background: rgba(255,255,255,.08); }
+  .emp-sb__item.is-active{
+    background: rgba(59,130,246,.18);
+    box-shadow: inset 0 0 0 1px rgba(59,130,246,.5);
+  }
+  .emp-sb__foot{ border-top-color: rgba(255,255,255,.08); color:#aab4cf; }
+  .emp-sb__logo{ background: linear-gradient(135deg,#60a5fa,#22d3ee); color:#0b1220; }
+  .emp-sb__bullet{ background: linear-gradient(180deg,#60a5fa,#22d3ee); }
+  .emp-sb__kbd{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16); color:#d7def0; }
+}
+
+/* ============== Header / Brand ============== */
+.emp-sb__head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 14px; border-bottom:1px solid #e9eef7; gap:10px;
+  min-height:56px;
+}
+.emp-sb__close{ background:none; border:0; cursor:pointer; padding:6px; border-radius:10px; transition:background .15s ease, transform .05s ease; }
+.emp-sb__close:hover{ background: rgba(0,0,0,.06); }
+.emp-sb__brand{ display:flex; align-items:center; gap:10px; }
+.emp-sb__logo{
+  width:34px; height:34px; display:grid; place-items:center; font-weight:800;
+  border-radius:10px; letter-spacing:.5px;
+  background: linear-gradient(135deg,#3b82f6,#22d3ee);
+  color:#ffffff; box-shadow: 0 8px 16px rgba(59,130,246,.25);
+}
+.emp-sb__brandtext{ display:flex; flex-direction:column; line-height:1.1; }
+.emp-sb__brandtext strong{ font-size:14px; color:#0f172a; }
+.emp-sb__role{ font-size:12px; color:#64748b; }
+
+/* ============== Nav ============== */
+.emp-sb__nav{
+  padding:10px; display:flex; flex-direction:column; gap:8px;
+}
+
+.emp-sb__item{
+  --bg: #f7f8fa;
+  position:relative;
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px 10px 10px; border-radius:12px; border:0;
+  background: var(--bg); cursor:pointer; text-align:left;
+  transition: background .18s ease, transform .05s ease, box-shadow .18s ease;
+  outline: none;
+}
+.emp-sb__item:hover{ background:#eef2f9; }
+.emp-sb__item:focus-visible{
+  box-shadow: 0 0 0 2px #93c5fd, 0 0 0 4px #dbeafe;
+}
+.emp-sb__item.is-active{
+  background:#e7f1ff;
+  box-shadow: inset 0 0 0 1px #cde5ff, 0 8px 18px rgba(59,130,246,.08);
+}
+
+/* Thanh bullet (viền trái) khi active */
+.emp-sb__bullet{
+  width:4px; height:22px; border-radius:8px;
+  background: linear-gradient(180deg,#3b82f6,#22d3ee);
+  opacity:0; transform: translateX(-6px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.emp-sb__item.is-active .emp-sb__bullet{
+  opacity:1; transform: translateX(0);
+}
+
+.emp-sb__icon{ display:inline-flex; align-items:center; justify-content:center; width:22px; }
+.emp-sb__text{
+  flex:1; display:flex; align-items:center; gap:8px;
+  color:#0f172a; font-weight:600; letter-spacing:.2px;
+}
+
+/* Hotkey hint */
+.emp-sb__kbd{
+  margin-left:auto; font-size:11px; padding:2px 6px;
+  border:1px solid #e2e8f0; border-bottom-width:2px;
+  border-radius:6px; background:#ffffff; color:#334155;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  opacity:.85;
+}
+
+/* Badge số lượng */
+.emp-sb__badge{
+  margin-left:6px; min-width:22px; height:22px; padding:0 6px;
+  display:inline-grid; place-items:center;
+  border-radius:999px; background:#ef4444; color:#fff; font-size:12px;
+  font-weight:700; box-shadow: 0 6px 14px rgba(239,68,68,.25);
+}
+
+/* ============== Footer ============== */
+.emp-sb__foot{
+  margin-top:auto; padding:12px 14px; border-top:1px solid #e9eef7; color:#64748b;
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce){
+  .emp-sb__overlay,
+  .emp-sb__drawer,
+  .emp-sb__item,
+  .emp-sb__bullet{
+    transition: none !important;
+  }
+}
