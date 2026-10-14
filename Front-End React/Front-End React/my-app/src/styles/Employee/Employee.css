@@ -1,0 +1,1030 @@
+/* =========================================================
+   Employee 3D UI theme
+   Gợi ý dùng: dán/append vào src/styles/Employee/Employee.css
+   ========================================================= */
+
+.employee-dashboard.emp3d-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #eaf2ff;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(42, 139, 255, 0.30), transparent 28rem),
+    radial-gradient(circle at 86% 0%, rgba(34, 211, 238, 0.24), transparent 26rem),
+    linear-gradient(135deg, #07111f 0%, #0c1730 45%, #0a1020 100%);
+  isolation: isolate;
+}
+
+.emp3d-shell * {
+  box-sizing: border-box;
+}
+
+.emp3d-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.emp3d-orb {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 999px;
+  filter: blur(18px);
+  opacity: 0.55;
+  transform: translateZ(0);
+}
+
+.emp3d-orb--one {
+  top: -120px;
+  left: 16%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.68), transparent 68%);
+  animation: emp3dFloat 10s ease-in-out infinite;
+}
+
+.emp3d-orb--two {
+  right: -110px;
+  bottom: 8%;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.48), transparent 68%);
+  animation: emp3dFloat 13s ease-in-out infinite reverse;
+}
+
+.emp3d-grid {
+  position: absolute;
+  inset: auto -10% -32% -10%;
+  height: 58vh;
+  background-image:
+    linear-gradient(rgba(125, 211, 252, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 211, 252, 0.13) 1px, transparent 1px);
+  background-size: 44px 44px;
+  transform: perspective(620px) rotateX(64deg);
+  transform-origin: center bottom;
+  mask-image: linear-gradient(to top, rgba(0,0,0,.8), transparent 76%);
+}
+
+@keyframes emp3dFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(18px, 26px, 0) scale(1.05); }
+}
+
+.emp3d-layout {
+  width: min(1500px, 100%);
+  margin: 0 auto;
+  padding: 22px 22px 44px;
+}
+
+.emp3d-sidebar {
+  position: fixed;
+  inset: 18px auto 18px 18px;
+  z-index: 90;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 30px;
+  background: linear-gradient(165deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.56));
+  backdrop-filter: blur(24px) saturate(150%);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transform: translateX(-112%);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  overflow: hidden;
+}
+
+.emp3d-sidebar.open {
+  transform: translateX(0);
+}
+
+.emp3d-sidebar::before {
+  content: "";
+  position: absolute;
+  inset: -40% -30% auto -30%;
+  height: 210px;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.36), transparent 70%);
+  pointer-events: none;
+}
+
+.emp3d-sidebar__head,
+.emp3d-sidebar__footer {
+  position: relative;
+  z-index: 1;
+}
+
+.emp3d-sidebar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px;
+}
+
+.emp3d-side-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.emp3d-side-brand img,
+.emp3d-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: rgba(255,255,255,.92);
+  padding: 7px;
+  box-shadow: 0 16px 32px rgba(14, 165, 233, 0.18);
+}
+
+.emp3d-side-brand strong,
+.emp3d-user-card strong {
+  display: block;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.emp3d-side-brand small,
+.emp3d-user-card small,
+.emp3d-sidebar__footer small {
+  display: block;
+  margin-top: 3px;
+  color: rgba(226, 232, 240, 0.68);
+}
+
+.emp3d-user-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 2px 16px 16px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.emp3d-avatar {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  color: #082f49;
+  font-weight: 900;
+  background: linear-gradient(135deg, #bae6fd, #67e8f9);
+  box-shadow: 0 14px 28px rgba(103, 232, 249, 0.28);
+}
+
+.emp3d-nav {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+  padding: 4px 14px;
+}
+
+.emp3d-nav .emp-sb_item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  color: rgba(226, 232, 240, 0.88);
+  background: transparent;
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.emp3d-nav .emp-sb_item:hover,
+.emp3d-nav .emp-sb_item.is-active {
+  color: #ffffff;
+  border-color: rgba(125, 211, 252, 0.25);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.26), rgba(14, 165, 233, 0.10));
+  transform: translateX(4px) translateZ(0);
+}
+
+.emp3d-nav .emp-sb_icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.emp3d-sidebar__footer {
+  margin-top: auto;
+  padding: 16px 18px 18px;
+  color: #dbeafe;
+}
+
+.emp3d-sidebar__footer span {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(14, 165, 233, 0.14);
+  border: 1px solid rgba(125, 211, 252, 0.20);
+  font-weight: 800;
+}
+
+.emp3d-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(2, 6, 23, 0.62);
+  backdrop-filter: blur(8px);
+}
+
+.emp3d-floating-menu {
+  position: fixed;
+  z-index: 100;
+  left: 18px;
+  top: 18px;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  color: #e0f2fe;
+  background: rgba(15, 23, 42, 0.76);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.32);
+  cursor: pointer;
+}
+
+.emp3d-icon-btn,
+.emp3d-round-btn {
+  border: 0;
+  color: #e0f2fe;
+  background: rgba(255, 255, 255, 0.10);
+  cursor: pointer;
+}
+
+.emp3d-hero {
+  position: relative;
+  display: block;
+  min-height: auto;
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 34px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.06)),
+    linear-gradient(145deg, rgba(15, 23, 42, .84), rgba(15, 23, 42, .54));
+  box-shadow:
+    0 36px 90px rgba(2, 6, 23, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(26px) saturate(140%);
+  transform-style: preserve-3d;
+}
+
+.emp3d-hero::after {
+  content: "";
+  position: absolute;
+  right: 5%;
+  top: 12%;
+  width: 180px;
+  height: 180px;
+  border-radius: 36px;
+  border: 1px solid rgba(125, 211, 252, 0.24);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.24), rgba(20, 184, 166, 0.12));
+  box-shadow: 0 28px 60px rgba(14, 165, 233, 0.18);
+  transform: translateZ(-1px) rotate(18deg);
+  pointer-events: none;
+}
+
+.emp3d-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.emp3d-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.emp3d-brand-row h1 {
+  margin: 6px 0 6px;
+  font-size: clamp(28px, 4vw, 50px);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+  color: #ffffff;
+}
+
+.emp3d-brand-row h1 span {
+  background: linear-gradient(90deg, #7dd3fc, #a7f3d0, #ffffff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.emp3d-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #7dd3fc;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.emp3d-shell .muted {
+  color: rgba(226, 232, 240, 0.72);
+}
+
+.emp3d-hero__actions {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.emp3d-hub-chip,
+.emp3d-shell .quick-device,
+.emp3d-logout,
+.emp3d-round-btn,
+.emp3d-tabs .quick-tab {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  padding: 10px 14px;
+  color: #eaf2ff;
+  background: rgba(255,255,255,.10);
+  backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+.emp3d-hub-chip.ok {
+  border-color: rgba(52, 211, 153, 0.30);
+  background: rgba(16, 185, 129, 0.13);
+}
+
+.emp3d-hub-chip.down {
+  border-color: rgba(248, 113, 113, 0.30);
+  background: rgba(239, 68, 68, 0.13);
+}
+
+.emp3d-shell .quick-device select {
+  max-width: 190px;
+  border: 0;
+  outline: none;
+  color: #ffffff;
+  background: transparent;
+  font-weight: 800;
+}
+
+.emp3d-shell .quick-device option {
+  color: #0f172a;
+}
+
+.emp3d-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emp3d-round-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
+}
+
+.emp3d-badge,
+.emp3d-shell .badge {
+  position: absolute;
+  right: -6px;
+  top: -7px;
+  min-width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  padding: 0 5px;
+  color: #fff;
+  background: #ef4444;
+  font-size: 11px;
+  font-weight: 900;
+  box-shadow: 0 10px 22px rgba(239, 68, 68, .42);
+}
+
+.emp3d-logout {
+  cursor: pointer;
+}
+
+.emp3d-metrics-row {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+  perspective: 900px;
+}
+
+.emp3d-metric {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 106px;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 26px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.05));
+  box-shadow: 0 22px 50px rgba(2,6,23,.24);
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0);
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+
+.emp3d-metric:hover {
+  transform: perspective(900px) rotateX(4deg) rotateY(-5deg) translateY(-4px);
+  border-color: rgba(125,211,252,.34);
+  box-shadow: 0 30px 70px rgba(2,6,23,.35);
+}
+
+.emp3d-metric::before {
+  content: "";
+  position: absolute;
+  inset: auto -30px -50px auto;
+  width: 130px;
+  height: 130px;
+  border-radius: 999px;
+  opacity: .38;
+  background: #60a5fa;
+  filter: blur(10px);
+}
+
+.emp3d-metric--green::before { background: #34d399; }
+.emp3d-metric--amber::before { background: #fbbf24; }
+.emp3d-metric--red::before { background: #fb7185; }
+
+.emp3d-metric__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 18px;
+  color: #082f49;
+  background: linear-gradient(135deg, #e0f2fe, #67e8f9);
+  box-shadow: 0 16px 32px rgba(103, 232, 249, .22);
+}
+
+.emp3d-metric span,
+.emp3d-metric small {
+  display: block;
+  color: rgba(226, 232, 240, .72);
+}
+
+.emp3d-metric strong {
+  display: block;
+  margin: 2px 0;
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.emp3d-tabs {
+  position: sticky;
+  top: 12px;
+  z-index: 40;
+  display: flex;
+  gap: 10px;
+  margin: 18px 0;
+  padding: 8px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  background: rgba(15, 23, 42, .56);
+  backdrop-filter: blur(18px);
+  overflow-x: auto;
+}
+
+.emp3d-tabs .quick-tab {
+  flex: 0 0 auto;
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease;
+}
+
+.emp3d-tabs .quick-tab:hover,
+.emp3d-tabs .quick-tab.active {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(59, 130, 246, .42), rgba(14, 165, 233, .18));
+}
+
+.emp3d-loader,
+.emp3d-alert-banner,
+.emp3d-glass-card {
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 30px;
+  background: linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.055));
+  backdrop-filter: blur(24px) saturate(140%);
+  box-shadow:
+    0 26px 70px rgba(2,6,23,.34),
+    inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+.emp3d-alert-banner {
+  margin-bottom: 18px;
+  padding: 16px;
+}
+
+.emp3d-main {
+  display: grid;
+  gap: 18px;
+}
+
+.emp3d-section-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 4px 4px 0;
+}
+
+.emp3d-section-top h2 {
+  margin: 6px 0 0;
+  color: #fff;
+  font-size: clamp(22px, 3vw, 34px);
+  letter-spacing: -0.04em;
+}
+
+.emp3d-section-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(226,232,240,.84);
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.08);
+}
+
+.emp3d-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(300px, .75fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.emp3d-glass-card {
+  position: relative;
+  padding: 20px;
+  color: #eaf2ff;
+  transform-style: preserve-3d;
+}
+
+.emp3d-glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,.13), transparent 38%);
+  pointer-events: none;
+}
+
+.emp3d-glass-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.emp3d-card-head,
+.emp3d-shell .section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.emp3d-card-head.compact {
+  align-items: center;
+}
+
+.emp3d-card-head h2,
+.emp3d-card-head h3,
+.emp3d-shell .section-head h2 {
+  margin: 5px 0 0;
+  color: #ffffff;
+  letter-spacing: -0.035em;
+}
+
+.emp3d-soft-btn,
+.emp3d-primary-btn,
+.emp3d-shell .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  padding: 10px 14px;
+  color: #eaf2ff;
+  font-weight: 900;
+  cursor: pointer;
+  background: rgba(255,255,255,.10);
+  transition: transform .18s ease, filter .18s ease, opacity .18s ease;
+}
+
+.emp3d-primary-btn {
+  border-color: rgba(125, 211, 252, .32);
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  box-shadow: 0 16px 34px rgba(37, 99, 235, .28);
+}
+
+.emp3d-soft-btn:hover,
+.emp3d-primary-btn:hover,
+.emp3d-shell .btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.emp3d-soft-btn:disabled,
+.emp3d-primary-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.emp3d-chip-outline,
+.emp3d-shell .chip-outline {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: #bae6fd;
+  border: 1px solid rgba(125,211,252,.24);
+  background: rgba(14,165,233,.12);
+  font-weight: 900;
+}
+
+.emp3d-device-panel {
+  position: sticky;
+  top: 96px;
+}
+
+.emp3d-device-list {
+  display: grid;
+  gap: 10px;
+  max-height: 520px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.emp3d-device-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 18px;
+  color: #eaf2ff;
+  background: rgba(255,255,255,.08);
+  cursor: pointer;
+  text-align: left;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.emp3d-device-card:hover,
+.emp3d-device-card.is-selected {
+  transform: translateY(-2px) translateX(2px);
+  border-color: rgba(125,211,252,.38);
+  background: rgba(14,165,233,.15);
+}
+
+.emp3d-device-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: #94a3b8;
+  box-shadow: 0 0 0 5px rgba(148, 163, 184, .12);
+}
+
+.emp3d-device-dot.online {
+  background: #34d399;
+  box-shadow: 0 0 0 5px rgba(52, 211, 153, .12), 0 0 20px rgba(52, 211, 153, .48);
+}
+
+.emp3d-device-dot.offline {
+  background: #fb7185;
+  box-shadow: 0 0 0 5px rgba(251, 113, 133, .12);
+}
+
+.emp3d-device-main strong,
+.emp3d-device-main small {
+  display: block;
+}
+
+.emp3d-device-main strong {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.emp3d-device-main small {
+  margin-top: 3px;
+  color: rgba(226, 232, 240, .62);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.emp3d-device-temp {
+  color: #a7f3d0;
+  font-weight: 900;
+}
+
+.emp3d-chart-card,
+.emp3d-threshold-card,
+.emp3d-task-card,
+.emp3d-notification-center {
+  min-height: 520px;
+}
+
+.emp3d-chart-container {
+  min-height: 470px;
+  border-radius: 24px;
+  padding: 12px;
+  background: rgba(2, 6, 23, .24);
+  border: 1px solid rgba(255,255,255,.08);
+  overflow: hidden;
+}
+
+.emp3d-th-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+
+.emp3d-field {
+  display: grid;
+  gap: 8px;
+}
+
+.emp3d-field span {
+  color: rgba(226, 232, 240, .76);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.emp3d-field input,
+.emp3d-field select,
+.emp3d-shell .admin-select,
+.emp3d-shell .admin-form input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 16px;
+  outline: none;
+  padding: 0 14px;
+  color: #ffffff;
+  background: rgba(15, 23, 42, .66);
+}
+
+.emp3d-field option,
+.emp3d-shell .admin-select option {
+  color: #0f172a;
+}
+
+.emp3d-action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.emp3d-message {
+  display: inline-flex;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  color: #dbeafe;
+  background: rgba(59, 130, 246, .14);
+  border: 1px solid rgba(125, 211, 252, .18);
+}
+
+.emp3d-hint {
+  margin-top: 14px;
+  color: rgba(226,232,240,.66);
+}
+
+.emp3d-empty-state,
+.emp3d-empty-mini {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: rgba(226,232,240,.7);
+}
+
+.emp3d-empty-state img {
+  width: min(220px, 60%);
+  opacity: .75;
+}
+
+.emp3d-toast-stack {
+  position: fixed;
+  z-index: 120;
+  right: 22px;
+  bottom: 22px;
+  display: grid;
+  gap: 10px;
+  width: min(420px, calc(100vw - 32px));
+}
+
+.emp3d-toast {
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.14);
+  padding: 14px;
+  color: #fff;
+  background: rgba(15, 23, 42, .82);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 60px rgba(2, 6, 23, .38);
+}
+
+.emp3d-toast.toast--danger,
+.emp3d-toast.toast--critical {
+  border-color: rgba(248, 113, 113, .36);
+  background: linear-gradient(135deg, rgba(127, 29, 29, .88), rgba(15, 23, 42, .82));
+}
+
+.emp3d-toast.toast--ok {
+  border-color: rgba(52, 211, 153, .36);
+  background: linear-gradient(135deg, rgba(6, 78, 59, .88), rgba(15, 23, 42, .82));
+}
+
+.emp3d-shell .skeleton-pill,
+.emp3d-shell .skeleton-line {
+  display: inline-block;
+  min-height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,255,255,.10), rgba(255,255,255,.22), rgba(255,255,255,.10));
+  background-size: 220% 100%;
+  animation: emp3dShimmer 1.25s infinite linear;
+}
+
+.emp3d-shell .skeleton-pill { width: 100%; min-height: 48px; }
+.emp3d-shell .skeleton-line { width: 100%; height: 18px; }
+.emp3d-shell .skeleton-line.short { width: 44%; }
+
+@keyframes emp3dShimmer {
+  0% { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
+}
+
+/* Các component con cũ thường có nền trắng; ép nhẹ về glass để hợp theme. */
+.emp3d-shell .employee-info-cards,
+.emp3d-shell .task-list,
+.emp3d-shell .task-card,
+.emp3d-shell .info-card {
+  color: inherit;
+}
+
+.emp3d-notification-center .notification-popup {
+  position: relative !important;
+  inset: auto !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+@media (min-width: 1100px) {
+  .emp3d-sidebar {
+    transform: translateX(0);
+  }
+
+  .emp3d-layout {
+    padding-left: 318px;
+  }
+
+  .emp3d-floating-menu,
+  .emp3d-sidebar .emp3d-icon-btn {
+    display: none;
+  }
+
+  .emp3d-overlay {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .emp3d-layout {
+    padding-top: 76px;
+  }
+
+  .emp3d-hero__content,
+  .emp3d-section-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .emp3d-hero__actions {
+    justify-content: flex-start;
+  }
+
+  .emp3d-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .emp3d-device-panel {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 820px) {
+  .emp3d-layout {
+    padding-inline: 14px;
+    padding-bottom: 28px;
+  }
+
+  .emp3d-hero {
+    padding: 18px;
+    border-radius: 26px;
+  }
+
+  .emp3d-brand-row {
+    align-items: flex-start;
+  }
+
+  .emp3d-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .emp3d-metrics-row,
+  .emp3d-th-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .emp3d-card-head,
+  .emp3d-shell .section-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .emp3d-chart-container {
+    min-height: 360px;
+    padding: 8px;
+  }
+
+  .emp3d-toast-stack {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .emp3d-sidebar {
+    inset: 10px;
+    width: auto;
+  }
+
+  .emp3d-brand-row h1 {
+    font-size: 30px;
+  }
+
+  .emp3d-hero__actions > *,
+  .emp3d-header-actions,
+  .emp3d-shell .quick-device {
+    width: 100%;
+  }
+
+  .emp3d-shell .quick-device select {
+    flex: 1;
+    max-width: none;
+  }
+
+  .emp3d-logout,
+  .emp3d-round-btn {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,150 @@
+/* LogTag Clinical Blue — VISUAL-ONLY layer.
+   Keep original page structure, API calls, component handlers, filtering and chart data logic.
+   Imported after pre-existing page styles so this acts as an additive theme override. */
+:root {
+  --lt-primary:#153A6B; --lt-action:#2F6FED; --lt-teal:#11A7A2;
+  --lt-success:#18A66A; --lt-warning:#F59E0B; --lt-danger:#E5484D;
+  --lt-canvas:#F4F7FB; --lt-surface:#FFFFFF; --lt-text:#172033;
+  --lt-muted:#667085; --lt-border:#DDE4EE;
+  --lt-radius:14px; --lt-shadow:0 4px 18px rgba(21,58,107,.065);
+}
+/* Scoped page foundations: no changes to global body, app shell, or navigation routes */
+:where(.export-root,.export-locked,.rtx,.scheduled-sms,.sms-activation-section,.sms-settings-clinical,.user-root,.uth-page,.udn-root,.uc-page-root,.chart-box-wow,.grid-container) {
+  color:var(--lt-text);font-family:Inter,"Noto Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.55;box-sizing:border-box;
+}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root) {
+  background:var(--lt-canvas);max-width:100%;min-width:0;
+}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root) :where(h1,h2,h3,h4) {color:var(--lt-primary);letter-spacing:-.025em;line-height:1.28}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root) :where(h1){font-size:clamp(26px,2.2vw,34px);font-weight:750}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root) :where(h2){font-size:clamp(21px,1.8vw,27px);font-weight:720}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root) :where(h3){font-size:19px;font-weight:700}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root) :where(p,small){color:var(--lt-muted)}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root,.chart-box-wow) :where(button,input,select,textarea){font-family:inherit}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root,.chart-box-wow) :where(input:not([type="checkbox"]),select,textarea) {min-height:42px;border:1px solid var(--lt-border);border-radius:10px;background:var(--lt-surface);color:var(--lt-text);font-size:14px;box-shadow:none}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root,.chart-box-wow) :where(input,select,textarea,button):focus-visible {outline:3px solid rgba(47,111,237,.23);outline-offset:2px}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root,.chart-box-wow) :where(button){transition:background-color .15s,border-color .15s,box-shadow .15s,transform .15s}
+:where(.export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root,.chart-box-wow) :where(button:disabled){cursor:not-allowed;opacity:.6}
+/* Export */
+.export-root{padding:clamp(20px,3vw,36px);margin:0 auto;max-width:1400px}
+.export-header,.export-filter,.export-card,.export-footer,.export-locked{background:#fff;border:1px solid var(--lt-border);border-radius:var(--lt-radius);box-shadow:var(--lt-shadow)}
+.export-header{padding:22px 26px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.export-title{font-size:30px!important;margin:0}.export-sub{font-size:15px;margin:4px 0}
+.export-filter{padding:24px;margin:22px 0}.filter-title{font-size:18px;font-weight:700;color:var(--lt-primary);margin-bottom:16px}
+.export-root .filter-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 20px}
+.export-root .field{display:flex;flex-direction:column;gap:7px;font-weight:600;font-size:14px}
+.export-root .field input{width:100%;padding:10px 12px}
+.export-root .checkbox{display:flex;align-items:center;gap:10px;grid-column:1/-1}
+.export-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.export-card{padding:25px;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0}
+.export-card>svg{color:var(--lt-action);padding:10px;background:#EAF1FF;width:52px;height:52px;border-radius:12px}
+.export-card h3{margin:0}.export-card p{min-height:44px;margin:0}.export-card button{margin-top:auto}
+.export-root .btn-primary,.export-locked .btn-primary{background:var(--lt-action)!important;color:#fff!important;border:1px solid var(--lt-action)!important;border-radius:10px!important;padding:10px 16px!important;font-weight:700;box-shadow:none!important}
+.export-root .btn-secondary{background:#fff!important;color:var(--lt-primary)!important;border:1px solid var(--lt-border)!important;border-radius:10px!important;padding:10px 14px!important}
+.export-footer{padding:16px 20px;margin-top:20px;background:#F9FBFF}
+/* Live monitoring */
+.rtx{padding:clamp(16px,2.5vw,32px);min-height:100%;}
+.rtx .rtx-header,.rtx .rtx-toolbar,.rtx .rtx-summary-card,.rtx .rtx-card,.rtx .rtx-table-wrap,.rtx .rtx-drawer-panel{border:1px solid var(--lt-border);background:#fff;border-radius:var(--lt-radius);box-shadow:var(--lt-shadow)}
+.rtx .rtx-header{padding:20px 24px;margin-bottom:20px;gap:18px}
+.rtx .rtx-header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rtx .rtx-title-eyebrow{color:var(--lt-teal);letter-spacing:.09em;font-weight:800}
+.rtx .rtx-refresh-btn,.rtx .rtx-card-open{background:var(--lt-action)!important;color:#fff!important;border:1px solid var(--lt-action)!important;border-radius:10px!important;box-shadow:none!important}
+.rtx .rtx-summary-card,.rtx .rtx-card{padding:18px}
+.rtx .rtx-summary-card strong,.rtx .rtx-compact-temperature,.rtx .rtx-table-number,.rtx .rtx-metric-tile strong{font-variant-numeric:tabular-nums;font-weight:750}
+.rtx .rtx-table-wrap{overflow:auto}.rtx .rtx-table{border-collapse:separate;border-spacing:0;width:100%}
+.rtx .rtx-table thead{background:#F2F6FC;color:var(--lt-primary)}
+.rtx .rtx-table :where(td,th){padding:12px 14px;border-bottom:1px solid #EDF1F6}
+.rtx .rtx-card:hover{border-color:#A7C4F8;box-shadow:0 7px 24px rgba(47,111,237,.11)}
+.rtx .rtx-chip-row{gap:8px;flex-wrap:wrap}
+/* SMS periodic schedule */
+.scheduled-sms{padding:clamp(18px,2.5vw,32px)}
+.scheduled-sms .scheduled-sms__hero{padding:26px 30px!important;background:#fff!important;border:1px solid var(--lt-border);border-radius:var(--lt-radius);box-shadow:var(--lt-shadow);color:var(--lt-text)!important}
+.scheduled-sms .scheduled-sms__hero h2{color:var(--lt-primary)!important;font-size:clamp(23px,2vw,30px)}
+.scheduled-sms .scheduled-sms__badge{color:var(--lt-teal);background:#E9F8F7;border-radius:9px}
+.scheduled-sms .scheduled-sms__stats{gap:16px;margin:20px 0}
+.scheduled-sms .scheduled-sms__stat-card,.scheduled-sms .scheduled-sms__sidebar,.scheduled-sms .scheduled-sms__form-card{background:#fff!important;border:1px solid var(--lt-border)!important;border-radius:var(--lt-radius)!important;box-shadow:var(--lt-shadow)!important}
+.scheduled-sms .scheduled-sms__stat-card{padding:20px 22px}
+.scheduled-sms .scheduled-sms__stat-card strong{font-size:30px;color:var(--lt-primary);font-variant-numeric:tabular-nums}
+.scheduled-sms .scheduled-sms__grid{gap:20px;align-items:start}
+.scheduled-sms .scheduled-sms__sidebar,.scheduled-sms .scheduled-sms__form-card{padding:24px}
+.scheduled-sms .scheduled-sms__item{background:#fff;border:1px solid var(--lt-border);border-radius:11px;margin-bottom:10px;text-align:left}
+.scheduled-sms .scheduled-sms__item.is-active{background:#EEF4FF;border-color:var(--lt-action)}
+.scheduled-sms .scheduled-sms__btn--primary{background:var(--lt-action)!important;border:1px solid var(--lt-action)!important;color:#fff!important;box-shadow:none!important;border-radius:10px!important}
+.scheduled-sms .scheduled-sms__btn--soft{background:#fff!important;color:var(--lt-primary)!important;border:1px solid var(--lt-border)!important;border-radius:10px!important}
+.scheduled-sms .scheduled-sms__chip,.scheduled-sms .scheduled-sms__quick-times button{border-radius:9px}
+.scheduled-sms .scheduled-sms__quick-times button.is-selected{background:#EAF1FF;color:var(--lt-action);border-color:var(--lt-action)}
+/* SMS activation, originally all inline styles: targeted !important styling only */
+.sms-activation-section{background:#fff!important;border:1px solid var(--lt-border)!important;border-radius:var(--lt-radius)!important;padding:24px!important;box-shadow:var(--lt-shadow)}
+.sms-activation-section h2{font-size:22px!important;color:var(--lt-primary)!important}
+.sms-activation-section p{font-size:14px!important;line-height:1.65}
+.sms-activation-section input{min-width:0!important;min-height:44px!important;border:1px solid var(--lt-border)!important;border-radius:10px!important;padding:10px 14px!important}
+.sms-activation-section button{border-radius:10px!important;background:var(--lt-action)!important;box-shadow:none!important;padding:11px 18px!important}
+/* SMS settings card: class added on existing root, same handlers and fields */
+.sms-settings-clinical{background:#fff!important;border:1px solid var(--lt-border)!important;box-shadow:var(--lt-shadow)!important;border-radius:var(--lt-radius)!important;padding:24px!important;max-width:620px!important}
+.sms-settings-clinical h2{color:var(--lt-primary)!important;font-size:23px!important}
+.sms-settings-clinical input{background:#fff!important;border:1px solid var(--lt-border)!important;min-height:44px;border-radius:10px!important;font-size:15px!important}
+.sms-settings-clinical button{background:var(--lt-action)!important;border-radius:10px!important;box-shadow:none!important;font-size:15px!important}
+/* User home and plan cards */
+.user-root{padding:clamp(16px,2.5vw,30px)}
+.user-root :where(.uf-basic-card,.uf-warning-card,.uf-tool-card,.uf-habit-card,.ups-license-section,.ups-redeem-section,.ups-quota,.uf-action-section,.smart-alarm-modal,.sms-drawer){background:#fff;border:1px solid var(--lt-border);border-radius:var(--lt-radius);box-shadow:var(--lt-shadow)}
+.user-root :where(.uf-tool-card,.uf-basic-card,.uf-warning-card,.uf-habit-card){padding:20px}
+.user-root .uf-action-grid{gap:16px}
+.user-root .uf-tool-card{transition:transform .15s,border-color .15s}
+.user-root .uf-tool-card:hover{transform:translateY(-2px);border-color:#ABC8F8}
+.user-root :where(.btn-primary,.uft-alert-btn-primary){background:var(--lt-action);color:white;border-radius:10px;box-shadow:none}
+/* Thresholds */
+.uth-page{padding:clamp(18px,2.6vw,34px)}
+.uth-head,.uth-summary-card,.uth-device-card,.uth-search,.uth-empty{background:#fff;border:1px solid var(--lt-border);border-radius:var(--lt-radius);box-shadow:var(--lt-shadow)}
+.uth-head{padding:24px;margin-bottom:18px}.uth-eyebrow{color:var(--lt-teal)!important;font-weight:750;letter-spacing:.08em}
+.uth-summary{gap:15px}.uth-summary-card{padding:18px 22px}.uth-summary-card b{font-size:30px;font-variant-numeric:tabular-nums;color:var(--lt-primary)}
+.uth-search{padding:14px 18px}.uth-device-list{display:grid;gap:16px;margin-top:20px}.uth-device-card{padding:23px}
+.uth-device-title h2{font-size:21px}.uth-threshold-panel{gap:16px}.uth-input input{border-radius:9px}
+.uth-btn--primary,.uth-refresh{background:var(--lt-action)!important;color:#fff!important;border-color:var(--lt-action)!important;border-radius:10px!important}
+.uth-status.is-active{background:#E7F7EF!important;color:#087D4B!important}
+/* User device naming */
+.udn-root{padding:clamp(18px,2.6vw,32px)}.udn-head,.udn-card,.udn-example,.udn-state{background:#fff;border:1px solid var(--lt-border);border-radius:var(--lt-radius);box-shadow:var(--lt-shadow)}
+.udn-head{padding:24px}.udn-list{display:grid;gap:13px;margin-top:20px}.udn-card{padding:20px;gap:16px}
+.udn-device strong{color:var(--lt-primary);font-size:17px}.udn-search{margin:18px 0}
+.udn-save,.udn-refresh{background:var(--lt-action)!important;color:#fff!important;border:1px solid var(--lt-action)!important;border-radius:10px!important;box-shadow:none!important}
+.udn-example{padding:18px;margin-top:20px;overflow-wrap:anywhere}
+/* User chart workspace: visual style only; preserve chart computations, exports, ranges and SignalR. */
+.uc-page-root{padding:clamp(16px,2.2vw,30px)}
+.uc-page-root :where(.ios-card,.uc-device-workbench,.uc-control-studio,.uc-data-capsule,.uc-metric-tile,.uc-stage,.uc-chart-surface,.uc-fleet-overview,.uc-no-device){background:#fff!important;border:1px solid var(--lt-border)!important;border-radius:var(--lt-radius)!important;box-shadow:var(--lt-shadow)!important;backdrop-filter:none!important}
+.uc-page-root .uc-metric-tile{padding:18px;min-width:0}.uc-page-root .uc-metric-copy strong{font-size:clamp(22px,2vw,31px);color:var(--lt-primary);font-variant-numeric:tabular-nums}
+.uc-page-root .uc-neo-workspace{gap:18px}.uc-page-root .uc-chart-surface{overflow:hidden;min-width:0}
+.uc-page-root .uc-live-pulse{color:var(--lt-teal)}.uc-page-root .uc-action-btn.btn-primary{background:var(--lt-action)!important;border-radius:10px!important;box-shadow:none!important}
+.uc-page-root .uc-thermal-gauge{filter:none!important}
+/* Shared chart UI */
+.chart-box-wow,.grid-container{min-width:0;background:#fff!important;border:1px solid var(--lt-border)!important;border-radius:var(--lt-radius)!important;box-shadow:var(--lt-shadow)!important;padding:20px}
+.chart-box-wow .chart-heading-wow{font-size:20px;line-height:1.4;color:var(--lt-primary)}
+.chart-box-wow .chart-box-panel{border:1px solid var(--lt-border);border-radius:12px;background:#fff!important;box-shadow:none!important;min-width:0;overflow:hidden}
+.chart-stats-mini{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chart-stats-mini .stat-chip{background:#F2F6FC!important;border:1px solid var(--lt-border)!important;color:var(--lt-muted)!important;border-radius:9px!important;padding:9px 13px;box-shadow:none!important;font-size:14px}
+.chart-stats-mini .stat-chip b{color:var(--lt-primary);font-variant-numeric:tabular-nums}
+.filter-group-modern{display:flex;gap:12px;align-items:center;flex-wrap:wrap;min-width:0}
+.filter-group-modern .filter-item{border-color:var(--lt-border)!important;box-shadow:none!important}
+.filter-group-modern :where(.btn-refresh,.btn-pause,.chip){border-radius:9px!important;box-shadow:none!important}
+.filter-group-modern .btn-refresh{background:var(--lt-action)!important;color:#fff!important}
+.grid-container>.box{min-width:0}.chartpanel-header{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:16px}
+.sensor-chart-root{border:1px solid var(--lt-border)!important;border-radius:12px!important;background:#fff!important;box-shadow:none!important}
+.sensor-chart-responsive-shell{min-width:0}
+/* Fixed spacing on compact screens, without changing responsive flow or underlying data. */
+@media(max-width:900px){
+  .export-root .filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .export-cards{grid-template-columns:1fr}.export-card p{min-height:0}
+  .scheduled-sms .scheduled-sms__grid{grid-template-columns:1fr!important}
+  .rtx .rtx-header{padding:18px}
+}
+@media(max-width:620px){
+  .export-root,.rtx,.scheduled-sms,.user-root,.uth-page,.udn-root,.uc-page-root{padding:14px}
+  .export-root .filter-grid{grid-template-columns:1fr}.export-root .export-header{padding:16px}
+  .export-root .export-filter,.export-root .export-card{padding:18px}
+  .scheduled-sms .scheduled-sms__hero,.scheduled-sms .scheduled-sms__sidebar,.scheduled-sms .scheduled-sms__form-card{padding:17px!important}
+  .scheduled-sms .scheduled-sms__stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .sms-activation-section>div{flex-wrap:wrap}.sms-activation-section input,.sms-activation-section button{width:100%!important}
+  .uth-head,.udn-head,.uth-device-card{padding:17px}
+  .chart-box-wow,.grid-container{padding:12px}.chartpanel-header{flex-wrap:wrap}
+  .rtx .rtx-table-wrap{overflow-x:auto}
+}
+@media(prefers-reduced-motion:reduce){.uf-tool-card,.rtx .rtx-card{transition:none!important}}

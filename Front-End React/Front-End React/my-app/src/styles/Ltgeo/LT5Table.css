@@ -1,0 +1,71 @@
+/* Wrapper scroll mềm */
+.lt5-table-wrapper {
+  max-height: 420px;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+/* Bảng */
+.lt5-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* Header */
+.lt5-table thead th {
+  position: sticky;
+  top: 0;
+  background: #f9fafb;
+  padding: 10px 12px;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 1;
+  font-size: 13px;
+  color: #374151;
+}
+
+/* Rows */
+.lt5-table tbody td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* Hover highlight */
+.lt5-table tbody tr:hover td {
+  background: #f9fafb;
+}
+
+/* Striped table (tuỳ chọn, nếu muốn bật) */
+/*
+.lt5-table tbody tr:nth-child(even) td {
+  background: #fdfdfd;
+}
+*/
+
+/* Khi không có dữ liệu */
+.lt5-table-empty {
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 600px) {
+  .lt5-table-wrapper {
+    max-height: 360px;
+  }
+
+  .lt5-table th,
+  .lt5-table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+}

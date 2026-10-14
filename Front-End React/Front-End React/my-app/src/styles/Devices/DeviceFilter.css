@@ -1,0 +1,15 @@
+.device-filter {
+  margin-bottom: 16px;
+}
+
+.device-label {
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.device-select {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}

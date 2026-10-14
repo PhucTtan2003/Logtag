@@ -1,0 +1,2 @@
+// Nên tạo ở đầu file (hoặc file chung types.ts nếu nhiều nơi dùng)
+export type SectionType = 'account' | 'chart' | 'notify' | 'product' | 'warranty'| 'tasks'| 'taskstatus'| 'events'| 'rebalance' | 'register' |'assigdevicestouser'| 'profiles' | 'thresholds' | "devicelist"|"smsSchedule";

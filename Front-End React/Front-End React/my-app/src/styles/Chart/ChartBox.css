@@ -1,0 +1,369 @@
+/* =========================================================
+  Chart UI — Modern, clean, responsive
+  (giữ nguyên class hiện có để không phải đổi TSX)
+========================================================= */
+
+/* ---------- Tokens ---------- */
+:root {
+  --c-bg: #fff;
+  --c-panel: #ffffff;
+  --c-ink: #0f172a;
+  --c-muted: #475569;
+  --c-line: #e5e7eb;
+  --c-soft: #f8fafc;
+
+  --c-primary: #0ea5e9;     /* sky-500 */
+  --c-primary-2: #4f46e5;   /* indigo-600 */
+  --c-success: #16a34a;     /* green-600 */
+  --c-danger: #ef4444;      /* red-500 */
+  --ring: 0 0 0 4px rgba(14,165,233,.12);
+}
+
+/* =========================================================
+  Box tổng
+========================================================= */
+.chart-box,
+.chart-box-wow {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid var(--c-line);
+  border-radius: 16px;
+  padding: 16px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+}
+
+/* viền cầu vồng tinh tế */
+.chart-box,
+.chart-box-wow {
+  border: 2px solid transparent;
+  border-image: linear-gradient(45deg, #38bdf8, #6366f1, #ec4899, #facc15, #38bdf8) 1;
+}
+
+/* tắt animation cũ & sheen */
+.chart-box-wow { animation: none !important; }
+.chart-box-wow::after { content: none !important; }
+
+/* =========================================================
+  Header + Title
+========================================================= */
+.chart-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--c-ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* hàng filter tổng */
+.chart-filters,
+.device-filter-bar,
+.filter-group-modern {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.filter-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.filter-item label {
+  font-size: 12px;
+  color: #334155;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+.filter-item select,
+.filter-item input {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--c-line);
+  background: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: box-shadow .2s, border-color .2s;
+}
+.filter-item input:focus,
+.filter-item select:focus {
+  border-color: var(--c-primary);
+  box-shadow: var(--ring);
+}
+
+/* select không bị che */
+.chart-box-wow .filter-item select {
+  position: relative;
+  z-index: 40;
+  pointer-events: auto;
+}
+
+/* quick preset chip */
+.quick-presets .chip {
+  border: 1px dashed #94a3b8;
+  background: #fff;
+  color: #0f172a;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background .2s;
+}
+.quick-presets .chip:hover { background: #f8fafc; }
+
+/* =========================================================
+  Thanh tìm kiếm thiết bị + gợi ý
+========================================================= */
+.device-filter-bar { gap: 12px; }
+
+.device-search { position: relative; flex: 1; min-width: 260px; }
+
+.device-search .icon-left {
+  position: absolute;
+  left: 10px; top: 50%;
+  transform: translateY(-50%);
+  opacity: .6;
+}
+
+.device-search input {
+  width: 100%;
+  padding: 10px 36px 10px 30px; /* chừa icon & nút clear */
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  outline: none;
+  transition: box-shadow .2s, border-color .2s;
+}
+.device-search input:focus {
+  border-color: var(--c-primary);
+  box-shadow: var(--ring);
+}
+
+.btn-clear {
+  position: absolute;
+  right: 8px; top: 50%;
+  transform: translateY(-50%);
+  border: none; background: #f1f5f9;
+  width: 26px; height: 26px; border-radius: 8px;
+  display: grid; place-items: center; cursor: pointer;
+  transition: background .2s;
+}
+.btn-clear:hover { background: #e2e8f0; }
+
+.suggest-menu {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+  background: #fff; border: 1px solid var(--c-line); border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(2,6,23,.08);
+  padding: 6px; z-index: 50;
+  max-height: 300px; overflow-y: auto;
+}
+.suggest-menu li {
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.suggest-menu li:hover { background: #f1f5f9; }
+.s-line1 { font-weight: 700; color: #0f172a; }
+.s-line2 { font-size: 12px; color: #475569; }
+
+.device-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #eef6ff; color: #0c4a6e;
+  border: 1px solid #bfdbfe; padding: 6px 10px;
+  border-radius: 999px;
+}
+.device-badge .dot { width: 8px; height: 8px; background: #22c55e; border-radius: 999px; }
+.device-badge .sn { font-weight: 700; }
+.badge-clear { border: none; background: transparent; cursor: pointer; opacity: .7; }
+.badge-clear:hover { opacity: 1; }
+
+/* =========================================================
+  Chart area + states
+========================================================= */
+.chart-container {
+  width: 100%;
+  height: 360px;
+}
+
+.chart-box-panel {
+  position: relative;
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+  padding: 8px 8px 4px;
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.chart-loading {
+  position: absolute; inset: 0;
+  display: grid; place-items: center; gap: 8px;
+  background: rgba(255,255,255,.6);
+  backdrop-filter: blur(2px);
+}
+.spinner {
+  width: 24px; height: 24px; border-radius: 999px;
+  border: 3px solid #cbd5e1; border-top-color: var(--c-primary);
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.chart-error,
+.chart-empty {
+  display: grid; place-items: center;
+  color: var(--c-muted); padding: 40px 0; font-weight: 600;
+}
+
+/* heading phụ + số liệu mini */
+.chart-heading-wow {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; margin-top: 4px;
+}
+.chart-heading-wow span { font-size: 12px; color: #475569; }
+
+.chart-stats-mini {
+  display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 10px;
+}
+.stat-chip {
+  background: var(--c-soft);
+  border: 1px solid var(--c-line);
+  padding: 6px 10px; border-radius: 999px; font-size: 12px;
+}
+
+/* =========================================================
+  Controls: live toggle, refresh, exports
+========================================================= */
+.toggle-live {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.toggle-live input { display: none; }
+.toggle-live .slider {
+  width: 42px; height: 24px; background: #e2e8f0; border-radius: 999px; position: relative;
+  transition: background .2s;
+}
+.toggle-live input:checked + .slider { background: #22c55e; }
+.toggle-live .slider::after {
+  content: ""; position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; background: #fff; border-radius: 999px; transition: transform .2s;
+}
+.toggle-live input:checked + .slider::after { transform: translateX(18px); }
+.toggle-live .label { font-weight: 700; color: var(--c-ink); display: inline-flex; align-items: center; gap: 6px; }
+
+.btn-refresh, .btn-pause {
+  background: var(--c-primary);
+  color: #fff;
+  border: none; border-radius: 10px;
+  padding: 8px 12px; cursor: pointer;
+  display: inline-flex; gap: 6px; align-items: center;
+  transition: transform .12s ease, box-shadow .2s ease, opacity .2s;
+}
+.btn-pause { background: #64748b; }
+.btn-refresh:hover, .btn-pause:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(2,6,23,.12);
+}
+.btn-refresh:disabled, .btn-pause:disabled { opacity: .5; cursor: not-allowed; }
+
+.refresh-btn {
+  margin-top: 16px;
+  background: linear-gradient(90deg, var(--c-primary), var(--c-primary-2));
+  color: white;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform .12s ease, box-shadow .2s ease, opacity .2s;
+}
+.refresh-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(2,6,23,.12);
+}
+
+/* latency label */
+.latency { display: inline-flex; gap: 6px; align-items: center; color: var(--c-ink); font-weight: 700; }
+
+/* =========================================================
+  Export khu vực
+========================================================= */
+.export-buttons-modern {
+  margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;
+}
+.btn-excel, .btn-pdf {
+  border: none; border-radius: 12px; padding: 8px 12px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px; font-weight: 800;
+  transition: transform .12s ease, box-shadow .2s ease, opacity .2s;
+}
+.btn-excel { background: var(--c-success); color: #fff; }
+.btn-pdf { background: var(--c-danger); color: #fff; }
+.btn-excel:hover, .btn-pdf:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(2,6,23,.12);
+}
+.btn-excel:disabled { opacity: .6; cursor: not-allowed; }
+
+/* =========================================================
+  PDF Export Layout (ẩn offscreen, in ra vẫn đẹp)
+========================================================= */
+.pdf-layout {
+  position: fixed;
+  left: -99999px; top: 0;
+  width: 1122px; /* A4 landscape ~96dpi */
+  background: #fff; color: var(--c-ink);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px var(--c-line) inset;
+}
+
+.pdf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px 10px 24px;
+  border-bottom: 1px solid var(--c-line);
+}
+.pdf-brand { display: flex; align-items: center; gap: 12px; }
+.pdf-brand img { width: 40px; height: 40px; border-radius: 8px; }
+.pdf-title-wrap h1 { font-size: 18px; margin: 0; line-height: 1.2; font-weight: 800; }
+.pdf-title-wrap h2 { font-size: 12px; margin: 4px 0 0; font-weight: 600; color: #334155; }
+
+.pdf-meta { display: grid; gap: 6px; grid-template-columns: repeat(2, max-content); }
+.meta-item { display: inline-flex; gap: 6px; }
+.meta-label { color: #475569; font-weight: 700; }
+.meta-value { color: var(--c-ink); font-weight: 800; }
+
+.pdf-stats { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 24px; }
+.pdf-chip {
+  background: var(--c-soft); border: 1px solid var(--c-line);
+  border-radius: 999px; padding: 6px 10px; font-size: 12px;
+  display: inline-flex; gap: 6px; align-items: center;
+}
+.pdf-chip .chip-label { color: #475569; font-weight: 800; }
+
+.pdf-chart { padding: 8px 16px; }
+.pdf-chart .chart-box-panel {
+  border: none !important;
+  border-radius: 10px;
+  box-shadow: 0 1px 0 var(--c-line) inset;
+}
+.pdf-chart .recharts-wrapper { overflow: visible !important; }
+
+.pdf-footer {
+  padding: 8px 24px 14px;
+  border-top: 1px solid var(--c-line);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10px; color: #475569;
+}
+
+/* =========================================================
+  Responsive tweaks
+========================================================= */
+@media (max-width: 640px) {
+  .chart-box-wow { padding: 12px; }
+  .device-filter-bar { gap: 8px; }
+  .filter-group-modern { gap: 8px; }
+}

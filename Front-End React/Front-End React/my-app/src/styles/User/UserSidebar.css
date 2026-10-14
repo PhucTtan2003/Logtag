@@ -1,0 +1,23 @@
+/* src/styles/User/UserSidebar.css */
+.us-layout { min-height: 100vh; padding:0!important; background:#f3f7fc; }
+.us-layout .us-shell { display:block!important; --uf-side-width:252px; min-height:100vh; }
+.us-layout .us-shell.uf-app-shell--collapsed { --uf-side-width:78px; }
+.us-layout .us-sidebar { position:fixed!important; top:0!important;left:0!important;bottom:0!important;z-index:110;width:var(--uf-side-width)!important;height:100dvh!important;max-height:100dvh!important;display:flex!important;flex-direction:column;overflow:hidden!important; }
+.us-layout .us-sidebar .uf-sidebar-nav { flex:1;min-height:0;overflow-y:auto!important;overscroll-behavior:contain; }
+.us-layout .us-sidebar .uf-sidebar-footer { flex:0 0 auto; }
+.us-layout .us-layout-content { margin-left:var(--uf-side-width);min-width:0;min-height:100vh;transition:margin-left .2s ease; }
+.us-layout .us-mobile-bar { display:none; }
+.us-layout .uf-page-content { padding:0 20px 30px; }
+.us-layout .uf-page-content .uf-topbar,.us-layout .uf-page-content .uf-main,.us-layout .uf-page-content .uf-alert-strip {width:100%!important;max-width:none!important;}
+.us-layout .uf-page-content .uf-workspace {display:block!important;width:100%!important;}
+.us-layout .uf-page-content .uf-chart-panel {min-width:0;width:100%;}
+.us-layout .ep-wrap {min-height:100vh;max-width:100%;}
+@media(max-width:900px){
+  .us-layout .us-shell,.us-layout .us-shell.uf-app-shell--collapsed {--uf-side-width:0px;}
+  .us-layout .us-layout-content {margin-left:0!important;}
+  .us-layout .us-sidebar {width:min(286px,85vw)!important;transform:translateX(-101%);transition:transform .2s ease;}
+  .us-layout .us-shell.uf-app-shell--mobile-open .us-sidebar {transform:translateX(0);}
+  .us-layout .us-mobile-bar {display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20;height:56px;padding:8px 14px;background:#fff;border-bottom:1px solid #e2e8f0;}
+  .us-layout .us-mobile-bar button {display:grid;place-items:center;width:38px;height:38px;border:0;background:#eff6ff;border-radius:10px;color:#173256;cursor:pointer;}
+  .us-layout .uf-page-content {padding:0 10px 20px;}
+}

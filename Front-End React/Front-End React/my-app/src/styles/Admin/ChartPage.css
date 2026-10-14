@@ -1,0 +1,97 @@
+/* =========================================
+  Home Layout — Responsive (Desktop ↔ Mobile)
+========================================= */
+.home-container {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  min-height: 100vh;     /* desktop */
+  min-height: 100svh;    /* mobile modern browsers */
+  background: #f3f4f6;
+}
+
+/* Nếu có sidebar ở ngoài thì phần này sẽ chiếm phần còn lại */
+.main-content {
+  flex: 1 1 auto;
+  padding: 24px;
+  overflow: auto;
+  background-color: #f3f4f6;
+  /* safe-area cho iOS */
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+
+.placeholder {
+  text-align: center;
+  color: #6b7280;
+  font-size: 20px;
+  margin-top: 80px;
+}
+
+/* Khung chứa biểu đồ / nội dung chính */
+.chart-wrapper {
+  width: 100%;
+  max-width: 960px;   /* rộng hơn chút cho desktop */
+  margin: 0 auto;
+}
+
+/* Tùy chọn: thẻ bọc biểu đồ đẹp hơn */
+.chart-card {
+  background: #fff;
+  border: 1px solid rgba(2,6,23,.06);
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(2,6,23,.06);
+  padding: 16px;
+}
+
+/* Nếu biểu đồ cần tỉ lệ cố định (tuỳ lib) */
+.chart-aspect {
+  position: relative;
+  aspect-ratio: 16 / 9; /* auto scale */
+}
+.chart-aspect > canvas,
+.chart-aspect > div {
+  position: absolute; inset: 0;
+}
+
+/* =========================
+   Breakpoints
+========================= */
+
+/* <= 1200px: giảm padding, tối ưu wrap */
+@media (max-width: 1200px) {
+  .main-content { padding: 20px; }
+  .chart-wrapper { max-width: 900px; }
+}
+
+/* <= 992px: coi như tablet ngang */
+@media (max-width: 992px) {
+  .home-container { gap: 12px; }
+  .main-content { padding: 18px; }
+  .placeholder { font-size: 18px; margin-top: 64px; }
+  .chart-wrapper { max-width: 820px; }
+}
+
+/* <= 768px: mobile/tablet dọc — xếp dọc, full width */
+@media (max-width: 768px) {
+  .home-container {
+    flex-direction: column;  /* nếu có sidebar, nó sẽ nằm trên */
+    gap: 0;
+  }
+  .main-content {
+    padding: 16px;
+    overflow: auto;
+  }
+  .chart-wrapper {
+    max-width: 100%;
+  }
+  .placeholder { font-size: 17px; margin-top: 48px; }
+}
+
+/* <= 480px: điện thoại nhỏ */
+@media (max-width: 480px) {
+  .main-content { padding: 14px; }
+  .chart-card { padding: 12px; border-radius: 12px; }
+  .placeholder { font-size: 16px; margin-top: 40px; }
+}

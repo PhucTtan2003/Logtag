@@ -1,0 +1,39 @@
+
+.lt5-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 999;
+}
+
+.lt5-bottom-item {
+  flex: 1;
+  text-align: center;
+  padding-top: 6px;
+  color: #64748b;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.lt5-bottom-item:hover {
+  background: #f1f5f9;
+}
+
+.lt5-bottom-item.active {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.lt5-bottom-item span {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 2px;
+}

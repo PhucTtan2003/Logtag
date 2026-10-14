@@ -1,0 +1,261 @@
+    /* ===== Overlay + Panel ===== */
+.rx-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 6, 23, 0.38);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: rx-fade 0.16s ease-out;
+  z-index: 9999;
+}
+
+@keyframes rx-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.rx-panel {
+  width: 94vw;
+  max-width: 780px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+  border: 1px solid rgba(2, 6, 23, 0.06);
+  border-radius: 18px;
+  box-shadow: 0 24px 56px rgba(2, 6, 23, 0.22);
+  overflow: hidden;
+  transform: translateY(4px);
+  animation: rx-up 0.18s ease-out;
+}
+
+@keyframes rx-up {
+  from { transform: translateY(10px); opacity: 0.9; }
+  to   { transform: translateY(4px); opacity: 1; }
+}
+
+/* ===== Header ===== */
+.rx-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(2, 6, 23, 0.06);
+}
+
+.rx-title {
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.rx-subtitle {
+  font-size: clamp(12px, 1.5vw, 13px);
+  color: #64748b;
+  margin-top: 2px;
+}
+
+/* Close button */
+.close-btn {
+  border: 0;
+  background: #f1f5f9;
+  color: #334155;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.close-btn:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+/* ===== Body ===== */
+.rx-body { padding: 14px 16px 16px; }
+
+.range-export-card {
+  background: #fff;
+  border: 1px solid rgba(2, 6, 23, 0.06);
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(2, 6, 23, 0.08);
+  padding: 16px;
+}
+
+.range-export-title {
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.range-export-sub {
+  font-size: clamp(12px, 1.5vw, 13px);
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* Grid fields */
+.range-export-grid {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0 10px;
+}
+
+/* Mobile: 1 cột */
+@media (max-width: 480px) {
+  .range-export-grid { grid-template-columns: 1fr; }
+}
+
+/* Tablet + Desktop: 2 cột */
+@media (min-width: 481px) {
+  .range-export-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.range-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* Input datetime */
+.rx-input[type="datetime-local"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.rx-input[type="datetime-local"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+/* Hint */
+.range-hint {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* ===== Actions ===== */
+.range-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.range-actions .btn {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  flex: 1 1 auto;
+  max-width: 140px;
+}
+
+.range-actions .btn.cancel {
+  background: #f1f5f9;
+  color: #334155;
+}
+.range-actions .btn.ok {
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  color: #fff;
+}
+/* ===== Sub text highlight cho giới hạn ngày ===== */
+.range-export-sub {
+  font-size: clamp(13px, 1.6vw, 14px);
+  color: #1e40af;              /* xanh đậm */
+  margin-top: 6px;
+  font-weight: 600;
+  background: #eff6ff;         /* xanh nhạt */
+  border-left: 4px solid #2563eb;
+  padding: 6px 10px;
+  border-radius: 8px;
+  line-height: 1.4;
+}
+.range-export-sub span {
+  color: #0f172a;              /* chữ đậm cho số ngày đang chọn */
+}
+/* Badge serial nhỏ gọn */
+.rx-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+  font-weight: 700;
+  border: 1px solid #e0e7ff;
+  font-size: 12px;
+}
+
+/* Quick presets + divider */
+.quick-presets {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 8px;
+}
+.btn.preset {
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn.preset:hover { background: #f8fafc; }
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(2,6,23,0.08), transparent);
+  margin: 8px 0 10px;
+}
+
+/* Inline error (thay alert) */
+.rx-error {
+  margin: 10px 16px 0 16px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  font-weight: 700;
+}
+
+/* Mini limit popup */
+.rx-pop__backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 6, 23, 0.35);
+  z-index: 10000;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  animation: rx-fade 0.15s ease-out;
+}
+.rx-pop {
+  width: min(520px, 92vw);
+  background: #fff;
+  border: 1px solid rgba(2, 6, 23, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 24px 64px rgba(2, 6, 23, 0.22);
+  padding: 18px 16px 14px;
+  text-align: center;
+  animation: rx-up 0.18s ease-out;
+}
+.rx-pop__icon { font-size: 28px; margin-bottom: 6px; }
+.rx-pop__title { font-weight: 800; color: #0f172a; font-size: 18px; margin-bottom: 6px; }
+.rx-pop__msg { color: #334155; font-size: 14px; line-height: 1.55; margin: 0 6px 14px; }
+.rx-pop__actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+.rx-pop .btn { padding: 10px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; border: 1px solid transparent; flex: 1 1 auto; max-width: 160px; }
+.rx-pop .btn.ghost { background: #f1f5f9; color: #334155; }
+.rx-pop .btn.ghost:hover { background: #e2e8f0; }
+.rx-pop .btn.solid { background: linear-gradient(90deg, #2563eb, #06b6d4); color: #fff; }
+.rx-pop .btn.solid:hover { filter: brightness(1.05); }

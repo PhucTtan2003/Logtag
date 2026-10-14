@@ -1,0 +1,307 @@
+/* =========================
+   SMARTTECH LOGIN FINAL
+   ========================= */
+
+:root {
+  --ink: #0f172a;
+  --muted: #64748b;
+
+  --brand: #2563eb;
+  --brand-2: #22c1c3;
+  --brand-3: #7c3aed;
+
+  --glass: rgba(255, 255, 255, 0.25);
+  --stroke: rgba(255, 255, 255, 0.25);
+
+  --shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+
+  --radius: 22px;
+}
+
+
+
+/* ===== MODAL ===== */
+.login-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ===== FIX QUAN TRỌNG ===== */
+.login-modal * {
+  box-sizing: border-box;
+}
+.login-overlay {
+  position: absolute;
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(12px);
+}
+
+/* ===== POPUP WRAPPER ===== */
+.login-popup {
+  position: relative;
+  z-index: 10000;
+
+  width: 420px;
+  max-width: 95%;
+
+  animation: popupShow 0.35s ease;
+}
+
+/* animation */
+@keyframes popupShow {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== CONTAINER ===== */
+
+/* PAGE MODE */
+.login-container.page-mode {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: linear-gradient(135deg, #eef4ff, #dbeafe);
+}
+
+/* POPUP MODE */
+.login-container.popup-mode {
+  min-height: auto !important;
+  height: auto !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+  background: transparent;
+}
+
+/* ================= BACKGROUND EFFECT ================= */
+
+.login-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(600px 300px at 20% 30%, rgba(37, 99, 235, 0.25), transparent 60%),
+    radial-gradient(500px 300px at 80% 20%, rgba(124, 58, 237, 0.2), transparent 60%),
+    radial-gradient(400px 250px at 60% 70%, rgba(34, 193, 195, 0.2), transparent 60%);
+
+  filter: blur(30px);
+}
+
+/* particles */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  animation: floatParticles linear infinite;
+}
+
+@keyframes floatParticles {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100vh); }
+}
+
+/* popup thì tắt hiệu ứng */
+.login-container.popup-mode .login-aurora,
+.login-container.popup-mode .particle {
+  display: none;
+}
+
+/* ================= CARD ================= */
+
+/* ===== CARD ===== */
+.login-card {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 380px;
+  padding: 32px;
+
+  border-radius: 22px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.35),
+    rgba(255,255,255,0.15)
+  );
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* glow effect */
+.login-popup::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+
+  background: radial-gradient(
+    circle,
+    rgba(37,99,235,0.2),
+    transparent 70%
+  );
+
+  filter: blur(40px);
+  z-index: -1;
+}
+
+/* ===== CLOSE BTN ===== */
+.login-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+
+  cursor: pointer;
+}
+
+/* ================= BRAND ================= */
+
+.brand-head {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.brand-head img {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+}
+
+.brand-title h1 {
+  margin: 8px 0 4px;
+  font-size: 20px;
+}
+
+.brand-title small {
+  color: var(--muted);
+}
+
+
+
+/* ===== INPUT ===== */
+.input-group {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+
+  border-radius: 14px;
+  background: rgba(255,255,255,0.6);
+
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.input-group input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+}
+
+.input-group:focus-within {
+  border: 1px solid #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+}
+
+
+/* ================= BUTTON ================= */
+
+.login-button {
+  width: 100%;
+  padding: 14px;
+
+  border-radius: 14px;
+  border: none;
+
+  color: white;
+  font-weight: 600;
+
+  background: linear-gradient(90deg, #7c3aed, #2563eb, #22c1c3);
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-position: right;
+  transform: translateY(-2px);
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================= HELPERS ================= */
+
+.login-helpers {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ================= ERROR ================= */
+
+.login-error {
+  background: rgba(255, 0, 0, 0.1);
+  color: red;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* ================= FOOTER ================= */
+
+.login-footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ================= GLOBAL ================= */
+
+body {
+  overflow-x: hidden;
+}

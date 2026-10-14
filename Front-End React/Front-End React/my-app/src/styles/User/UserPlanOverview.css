@@ -1,0 +1,342 @@
+/* src/styles/User/UserPlanOverview.css */
+
+.ups-card {
+  display: grid;
+  gap: 18px;
+  overflow: hidden;
+}
+
+.ups-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ups-heading h2 {
+  margin: 4px 0 5px;
+}
+
+.ups-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.ups-status {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.ups-status--active {
+  color: #047857;
+  background: #d1fae5;
+  border: 1px solid #a7f3d0;
+}
+
+.ups-status--expired {
+  color: #b91c1c;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+}
+
+.ups-status--basic,
+.ups-status--loading {
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+.ups-plan-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: stretch;
+  padding: 22px;
+  color: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(255, 255, 255, 0.26), transparent 25%),
+    linear-gradient(135deg, #4f46e5 0%, #2563eb 46%, #06b6d4 100%);
+  box-shadow: 0 18px 44px rgba(37, 99, 235, 0.2);
+}
+
+.ups-plan-hero::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -50px;
+  bottom: -88px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.ups-plan-hero__copy {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.ups-plan-hero__copy > span,
+.ups-days > span {
+  display: block;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ups-plan-hero__copy > strong {
+  display: block;
+  font-size: clamp(22px, 3vw, 31px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  word-break: break-word;
+}
+
+.ups-feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.ups-feature-list span {
+  padding: 6px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+}
+
+.ups-days {
+  position: relative;
+  z-index: 1;
+  min-width: 92px;
+  padding-left: 18px;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  text-align: right;
+}
+
+.ups-days strong {
+  display: block;
+  font-size: 37px;
+  line-height: 1;
+}
+
+.ups-days small {
+  display: block;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ups-quota {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid #bae6fd;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(14, 165, 233, 0.12), transparent 34%),
+    linear-gradient(180deg, #f8fdff, #effaff);
+}
+
+.ups-quota--low {
+  border-color: #fdba74;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(249, 115, 22, 0.13), transparent 34%),
+    linear-gradient(180deg, #fffaf4, #fff7ed);
+}
+
+.ups-quota--pending {
+  border-color: #fde68a;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(245, 158, 11, 0.12), transparent 34%),
+    linear-gradient(180deg, #fffdf5, #fffbeb);
+}
+
+.ups-quota__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.ups-quota__head span {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ups-quota__head strong {
+  display: block;
+  margin-top: 3px;
+  color: #0f172a;
+  font-size: 19px;
+}
+
+.ups-quota__badge {
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #0369a1 !important;
+  background: #e0f2fe;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  white-space: nowrap;
+}
+
+.ups-progress {
+  width: 100%;
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dbeafe;
+}
+
+.ups-progress span {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  transition: width 0.35s ease;
+}
+
+.ups-quota--low .ups-progress span {
+  background: linear-gradient(90deg, #f97316, #ef4444);
+}
+
+.ups-quota__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.ups-quota__stats > div {
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.ups-quota__stats span {
+  display: block;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ups-quota__stats b {
+  display: block;
+  margin-top: 4px;
+  color: #0f172a;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.ups-quota__message {
+  margin: 0;
+  color: #92400e;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.ups-quota__message code {
+  padding: 1px 4px;
+  border-radius: 5px;
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.ups-quota__message--warning {
+  font-weight: 700;
+  color: #c2410c;
+}
+
+.ups-license-section,
+.ups-redeem-section {
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.ups-license-section__head,
+.ups-redeem-section > div:first-child {
+  margin-bottom: 12px;
+}
+
+.ups-license-section__head span,
+.ups-redeem-section > div:first-child span {
+  display: block;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ups-license-section__head b,
+.ups-redeem-section > div:first-child b {
+  display: block;
+  margin-top: 3px;
+  color: #0f172a;
+  font-size: 15px;
+}
+
+.ups-license-shell {
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.ups-license-shell > * {
+  max-width: 100%;
+}
+
+.ups-redeem-section {
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+
+@media (max-width: 720px) {
+  .ups-heading {
+    flex-direction: column;
+  }
+
+  .ups-plan-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .ups-days {
+    padding-top: 14px;
+    padding-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-left: 0;
+    text-align: left;
+  }
+
+  .ups-quota__head {
+    flex-direction: column;
+  }
+
+  .ups-quota__stats {
+    grid-template-columns: 1fr;
+  }
+}

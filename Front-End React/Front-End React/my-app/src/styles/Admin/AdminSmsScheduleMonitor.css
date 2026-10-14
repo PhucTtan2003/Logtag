@@ -1,0 +1,326 @@
+.admin-sms-monitor {
+  width: 100%;
+  padding: 22px;
+  color: #0f172a;
+}
+
+.admin-sms-monitor * {
+  box-sizing: border-box;
+}
+
+.admin-sms-monitor__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid #dbeafe;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.16), transparent 34%),
+    linear-gradient(135deg, #eff6ff, #ffffff);
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+}
+
+.admin-sms-monitor__eyebrow {
+  width: fit-content;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.admin-sms-monitor__head h1 {
+  margin: 12px 0 6px;
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.admin-sms-monitor__head p {
+  margin: 0;
+  max-width: 720px;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.admin-sms-monitor__reload,
+.admin-sms-monitor__filters button,
+.admin-sms-monitor__toolbar button,
+.admin-sms-monitor__toggle {
+  height: 42px;
+  border: 0;
+  border-radius: 14px;
+  padding: 0 15px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.admin-sms-monitor__reload,
+.admin-sms-monitor__filters button {
+  color: #ffffff;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+}
+
+.admin-sms-monitor__reload:disabled,
+.admin-sms-monitor__filters button:disabled,
+.admin-sms-monitor__toggle:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.admin-sms-monitor__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.admin-sms-monitor__stats > div {
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
+}
+
+.admin-sms-monitor__stats span {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admin-sms-monitor__stats strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 28px;
+  letter-spacing: -0.04em;
+}
+
+.admin-sms-monitor__filters {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 180px 190px auto;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05);
+}
+
+.admin-sms-monitor__filters input,
+.admin-sms-monitor__filters select,
+.admin-sms-monitor__toolbar select {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #dbe4f0;
+  border-radius: 14px;
+  outline: none;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 0 12px;
+  font-weight: 800;
+}
+
+.admin-sms-monitor__tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  overflow-x: auto;
+}
+
+.admin-sms-monitor__tabs button {
+  border: 1px solid #dbe4f0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #334155;
+  padding: 11px 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.admin-sms-monitor__tabs button.is-active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.admin-sms-monitor__error {
+  margin-top: 16px;
+  padding: 13px 15px;
+  border: 1px solid #fecaca;
+  border-radius: 16px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-weight: 800;
+}
+
+.admin-sms-monitor__panel {
+  margin-top: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.07);
+  overflow: hidden;
+}
+
+.admin-sms-monitor__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.admin-sms-monitor__toolbar h2 {
+  margin: 0;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+}
+
+.admin-sms-monitor__toolbar span {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admin-sms-monitor__table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-sms-monitor table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+}
+
+.admin-sms-monitor th,
+.admin-sms-monitor td {
+  padding: 13px 14px;
+  border-bottom: 1px solid #eef2f7;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.admin-sms-monitor th {
+  color: #64748b;
+  background: #f8fafc;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.admin-sms-monitor td {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.admin-sms-monitor code {
+  padding: 4px 7px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-weight: 900;
+}
+
+.admin-sms-monitor__user {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-sms-monitor__user strong {
+  font-size: 13px;
+}
+
+.admin-sms-monitor__user span {
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-sms-monitor__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 78px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.admin-sms-monitor__badge.is-pending {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.admin-sms-monitor__badge.is-processing {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+.admin-sms-monitor__badge.is-sent,
+.admin-sms-monitor__badge.is-on {
+  color: #047857;
+  background: #dcfce7;
+}
+
+.admin-sms-monitor__badge.is-failed,
+.admin-sms-monitor__badge.is-off {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.admin-sms-monitor__toggle.is-on {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.admin-sms-monitor__toggle.is-off {
+  color: #047857;
+  background: #dcfce7;
+}
+
+.admin-sms-monitor__err-cell {
+  max-width: 320px;
+  color: #b91c1c !important;
+  word-break: break-word;
+}
+
+@media (max-width: 1000px) {
+  .admin-sms-monitor {
+    padding: 14px;
+  }
+
+  .admin-sms-monitor__head {
+    flex-direction: column;
+  }
+
+  .admin-sms-monitor__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-sms-monitor__filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-sms-monitor__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sms-monitor__head h1 {
+    font-size: 24px;
+  }
+}
