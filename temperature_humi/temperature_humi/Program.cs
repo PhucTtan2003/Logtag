@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.HttpOverrides;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Http.Resilience;
@@ -24,11 +26,41 @@ using static Org.BouncyCastle.Math.EC.ECCurve;
 using static temperature_humi.Service.LocationReadingService;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// WorkerMode=ApiOnly: test Docker API, không tự polling hoặc gửi SMS theo lịch.
+// WorkerMode=Full (mặc định): giữ hành vi vận hành trước đây.
+var workerMode = builder.Configuration["WorkerMode"] ?? "Full";
+if (!string.Equals(workerMode, "Full", StringComparison.OrdinalIgnoreCase) &&
+    !string.Equals(workerMode, "ApiOnly", StringComparison.OrdinalIgnoreCase))
+    throw new InvalidOperationException("WorkerMode phải là Full hoặc ApiOnly.");
+var runBackgroundWorkers = !string.Equals(workerMode, "ApiOnly", StringComparison.OrdinalIgnoreCase);
+
+// Linux Docker dùng volume lưu key; Windows local dùng LocalApplicationData.
+var keysPath = builder.Configuration["DataProtection:KeysPath"];
+if (string.IsNullOrWhiteSpace(keysPath))
+    keysPath = OperatingSystem.IsWindows()
+        ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "temperature_humi", "dataprotection-keys")
+        : "/var/lib/temperature_humi/dataprotection-keys";
+Directory.CreateDirectory(keysPath);
 builder.Services
     .AddDataProtection()
-    .PersistKeysToFileSystem(
-        new DirectoryInfo("/var/lib/temperature_humi/dataprotection-keys"))
+    .PersistKeysToFileSystem(new DirectoryInfo(keysPath))
     .SetApplicationName("temperature_humi");
+
+// Nginx HTTPS termination: chỉ tin header của proxy được cấu hình cụ thể.
+// Với Nginx bên host Docker, khai báo ReverseProxy__KnownProxy là IP gateway của Docker.
+var proxyAddress = builder.Configuration["ReverseProxy:KnownProxy"];
+if (!string.IsNullOrWhiteSpace(proxyAddress))
+{
+    if (!IPAddress.TryParse(proxyAddress, out var trustedProxy))
+        throw new InvalidOperationException("ReverseProxy:KnownProxy phải là địa chỉ IP hợp lệ.");
+    builder.Services.Configure<ForwardedHeadersOptions>(options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        options.KnownProxies.Add(trustedProxy);
+    });
+}
 // ==============================
 // 1) Services (DI)
 // ==============================
@@ -108,7 +140,7 @@ builder.Services.AddSingleton<EventIngestProcessingCache>(sp =>
 });
 
 
-builder.Services.AddHostedService<EventIngestCacheWorker>();
+if (runBackgroundWorkers) builder.Services.AddHostedService<EventIngestCacheWorker>();
 
 // ===== Bind configs
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDbSettings"));
@@ -186,7 +218,7 @@ builder.Services.AddSingleton<LocationReadingService>();
 builder.Services.AddSingleton<EventService>();
 builder.Services.AddSingleton<AccountEventsService>();
 builder.Services.AddSingleton<EmployeeAccountDeviceService>();
-builder.Services.AddHostedService<ProfilesPollingStream>();
+if (runBackgroundWorkers) builder.Services.AddHostedService<ProfilesPollingStream>();
 builder.Services.AddSingleton<DeviceAlarmRuleService>();
 builder.Services.AddSingleton<AlertThresholdService>();
 builder.Services.AddSingleton<Lt5Service>();
@@ -194,7 +226,7 @@ builder.Services.AddSingleton<SmsActivationService>();
 builder.Services.AddSingleton<SubscriptionService>();
 builder.Services.Configure<SubscriptionCleanupOptions>(
 builder.Configuration.GetSection("SubscriptionCleanup"));
-builder.Services.AddHostedService<SubscriptionCleanupWorker>();
+if (runBackgroundWorkers) builder.Services.AddHostedService<SubscriptionCleanupWorker>();
 
 builder.Services.AddSingleton<LogTagApiClientMain>();
 builder.Services.AddSingleton<LogTagApiClientLt5>();
@@ -208,23 +240,23 @@ builder.Services.AddSingleton<MonthlyReportCsvBuilder>();
 builder.Services.AddSingleton<ReportEmailSender>();
 builder.Services.AddSingleton<MonthlyReportService>();
 builder.Services.AddSingleton<MonthlyReportWorker>();
-builder.Services.AddHostedService(sp => sp.GetRequiredService<MonthlyReportWorker>());
+if (runBackgroundWorkers) builder.Services.AddHostedService(sp => sp.GetRequiredService<MonthlyReportWorker>());
 
 // Thêm vào khu vực Bind configs:
 builder.Services.Configure<ReadingAggregationOptions>(builder.Configuration.GetSection("ReadingAggregation"));
 
 // Thêm vào khu vực App services / Hosted services:
 builder.Services.AddSingleton<ReadingAggregationService>();
-builder.Services.AddHostedService<ReadingAggregationWorker>();
+if (runBackgroundWorkers) builder.Services.AddHostedService<ReadingAggregationWorker>();
 // Realtime worker
 builder.Services.AddSingleton<LogTagRealtimeWorker>();
 //builder.Services.AddHostedService(sp => sp.GetRequiredService<LogTagRealtimeWorker>());
 builder.Services.AddSingleton<DevicesSyncWorker>();
-builder.Services.AddHostedService(sp => sp.GetRequiredService<DevicesSyncWorker>());
+if (runBackgroundWorkers) builder.Services.AddHostedService(sp => sp.GetRequiredService<DevicesSyncWorker>());
 
 builder.Services.Configure<Lt5EventsOptions>(builder.Configuration.GetSection("Lt5Events"));
 builder.Services.AddSingleton<Lt5EventPullWorker>();
-builder.Services.AddHostedService(sp => sp.GetRequiredService<Lt5EventPullWorker>());
+if (runBackgroundWorkers) builder.Services.AddHostedService(sp => sp.GetRequiredService<Lt5EventPullWorker>());
 
 builder.Services.AddSingleton<Lt5ProfilesStoreService>();
 // Scheduler cho các request LogTag
@@ -234,17 +266,17 @@ builder.Services.AddSingleton<LocationReadingService.IEndpointScheduler>(
 builder.Services.AddHostedService(sp => sp.GetRequiredService<EndpointScheduler>());
 
 // Worker chính kéo LocationReadings v2
-builder.Services.AddHostedService<ReadingsPollingStream>();
+if (runBackgroundWorkers) builder.Services.AddHostedService<ReadingsPollingStream>();
 
 // Các worker khác
-builder.Services.AddHostedService<EventsChangeStream>();
-builder.Services.AddHostedService<LogTagPullWorker>();
+if (runBackgroundWorkers) builder.Services.AddHostedService<EventsChangeStream>();
+if (runBackgroundWorkers) builder.Services.AddHostedService<LogTagPullWorker>();
 
 builder.Services.AddSingleton<SmsScheduleService>();
 builder.Services.AddSingleton<SmsScheduleEnqueueWorker>();
-builder.Services.AddHostedService(sp => sp.GetRequiredService<SmsScheduleEnqueueWorker>());
+if (runBackgroundWorkers) builder.Services.AddHostedService(sp => sp.GetRequiredService<SmsScheduleEnqueueWorker>());
 builder.Services.AddSingleton<SmsScheduleSenderWorker>();
-builder.Services.AddHostedService(sp => sp.GetRequiredService<SmsScheduleSenderWorker>());
+if (runBackgroundWorkers) builder.Services.AddHostedService(sp => sp.GetRequiredService<SmsScheduleSenderWorker>());
 
 // Session
 builder.Services.AddSession(o =>
@@ -437,6 +469,9 @@ if (!hasSmsNotifier)
 }
 
 var app = builder.Build();
+app.Logger.LogInformation("[WorkerMode] {Mode}", workerMode);
+if (!string.IsNullOrWhiteSpace(proxyAddress))
+    app.UseForwardedHeaders();
 
 // ============================================================
 // CORS PREFLIGHT FALLBACK
@@ -533,270 +568,278 @@ app.Use(async (context, next) =>
     await next();
 });
 
-// Xác nhận container có thể resolve trực tiếp các service SMS.
-// SmsDispatchService được resolve sớm để tạo/kiểm tra unique index
-// ux_smsdispatch_idempotency trước khi worker bắt đầu gửi SMS.
-_ = app.Services.GetRequiredService<temperature_humi.Service.SmsQuotaService>();
-_ = app.Services.GetRequiredService<temperature_humi.Service.SmsDispatchService>();
-_ = app.Services.GetRequiredService<ISmsEventNotifier>();
-
-app.Logger.LogInformation(
-    "[DI] SmsQuotaService, SmsDispatchService and ISmsEventNotifier resolved successfully.");
-
-try
+if (runBackgroundWorkers)
 {
-    // AccountDeviceService tự kiểm tra index theo key và unique option,
-    // nên không bị lỗi khi MongoDB đang có cùng key nhưng tên index khác.
-    var accountDeviceService =
-        app.Services.GetRequiredService<AccountDeviceService>();
-
-    await accountDeviceService.EnsureIndexesAsync();
+    // Xác nhận container có thể resolve trực tiếp các service SMS.
+    // SmsDispatchService được resolve sớm để tạo/kiểm tra unique index
+    // ux_smsdispatch_idempotency trước khi worker bắt đầu gửi SMS.
+    _ = app.Services.GetRequiredService<temperature_humi.Service.SmsQuotaService>();
+    _ = app.Services.GetRequiredService<temperature_humi.Service.SmsDispatchService>();
+    _ = app.Services.GetRequiredService<ISmsEventNotifier>();
 
     app.Logger.LogInformation(
-        "[MongoIndex] AccountDevices indexes ensured successfully.");
-}
-catch (Exception ex)
-{
-    app.Logger.LogError(
-        ex,
-        "[MongoIndex] AccountDevices bootstrap failed. Detail={Detail}",
-        ex.ToString());
-}
+        "[DI] SmsQuotaService, SmsDispatchService and ISmsEventNotifier resolved successfully.");
 
-try
-{
-    // ===== LocationReadings collection =====
-    // Multi-team cần unique theo:
-    // TeamId + SerialNumber + DateUtc.
-    var mongoOptions =
-        app.Services.GetRequiredService<IOptions<MongoDBSettings>>().Value;
-
-    var mongoClient = new MongoClient(mongoOptions.ConnectionString);
-    var database = mongoClient.GetDatabase(mongoOptions.DatabaseName);
-    var readings =
-        database.GetCollection<LocationReading>("LocationReadings");
-
-    static string? GetIndexName(MongoDB.Bson.BsonDocument index)
+    try
     {
-        return index.TryGetValue("name", out var value) && value.IsString
-            ? value.AsString
-            : null;
+        // AccountDeviceService tự kiểm tra index theo key và unique option,
+        // nên không bị lỗi khi MongoDB đang có cùng key nhưng tên index khác.
+        var accountDeviceService =
+            app.Services.GetRequiredService<AccountDeviceService>();
+
+        await accountDeviceService.EnsureIndexesAsync();
+
+        app.Logger.LogInformation(
+            "[MongoIndex] AccountDevices indexes ensured successfully.");
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogError(
+            ex,
+            "[MongoIndex] AccountDevices bootstrap failed. Detail={Detail}",
+            ex.ToString());
     }
 
-    static bool IsUniqueIndex(MongoDB.Bson.BsonDocument index)
+    try
     {
-        return index.TryGetValue("unique", out var value)
-            && value.IsBoolean
-            && value.AsBoolean;
-    }
+        // ===== LocationReadings collection =====
+        // Multi-team cần unique theo:
+        // TeamId + SerialNumber + DateUtc.
+        var mongoOptions =
+            app.Services.GetRequiredService<IOptions<MongoDBSettings>>().Value;
 
-    static bool SameBsonValue(
-        MongoDB.Bson.BsonValue left,
-        MongoDB.Bson.BsonValue right)
-    {
-        return left.BsonType == right.BsonType
-            ? left.Equals(right)
-            : string.Equals(
-                left.ToString(),
-                right.ToString(),
-                StringComparison.Ordinal);
-    }
+        var mongoClient = new MongoClient(mongoOptions.ConnectionString);
+        var database = mongoClient.GetDatabase(mongoOptions.DatabaseName);
+        var readings =
+            database.GetCollection<LocationReading>("LocationReadings");
 
-    static bool SameIndexKey(
-        MongoDB.Bson.BsonDocument index,
-        params MongoDB.Bson.BsonDocument[] expectedKeys)
-    {
-        if (!index.TryGetValue("key", out var keyValue)
-            || !keyValue.IsBsonDocument)
+        static string? GetIndexName(MongoDB.Bson.BsonDocument index)
         {
+            return index.TryGetValue("name", out var value) && value.IsString
+                ? value.AsString
+                : null;
+        }
+
+        static bool IsUniqueIndex(MongoDB.Bson.BsonDocument index)
+        {
+            return index.TryGetValue("unique", out var value)
+                && value.IsBoolean
+                && value.AsBoolean;
+        }
+
+        static bool SameBsonValue(
+            MongoDB.Bson.BsonValue left,
+            MongoDB.Bson.BsonValue right)
+        {
+            return left.BsonType == right.BsonType
+                ? left.Equals(right)
+                : string.Equals(
+                    left.ToString(),
+                    right.ToString(),
+                    StringComparison.Ordinal);
+        }
+
+        static bool SameIndexKey(
+            MongoDB.Bson.BsonDocument index,
+            params MongoDB.Bson.BsonDocument[] expectedKeys)
+        {
+            if (!index.TryGetValue("key", out var keyValue)
+                || !keyValue.IsBsonDocument)
+            {
+                return false;
+            }
+
+            var actual = keyValue.AsBsonDocument;
+
+            foreach (var expected in expectedKeys)
+            {
+                if (actual.ElementCount != expected.ElementCount)
+                    continue;
+
+                var matches = true;
+
+                foreach (var element in expected.Elements)
+                {
+                    if (!actual.TryGetValue(element.Name, out var actualValue)
+                        || !SameBsonValue(actualValue, element.Value))
+                    {
+                        matches = false;
+                        break;
+                    }
+                }
+
+                if (matches)
+                    return true;
+            }
+
             return false;
         }
 
-        var actual = keyValue.AsBsonDocument;
-
-        foreach (var expected in expectedKeys)
+        static async Task DropIndexSafeAsync(
+            IMongoCollection<LocationReading> collection,
+            string indexName,
+            ILogger logger)
         {
-            if (actual.ElementCount != expected.ElementCount)
-                continue;
-
-            var matches = true;
-
-            foreach (var element in expected.Elements)
+            if (string.IsNullOrWhiteSpace(indexName)
+                || string.Equals(indexName, "_id_", StringComparison.Ordinal))
             {
-                if (!actual.TryGetValue(element.Name, out var actualValue)
-                    || !SameBsonValue(actualValue, element.Value))
+                return;
+            }
+
+            try
+            {
+                await collection.Indexes.DropOneAsync(indexName);
+
+                logger.LogWarning(
+                    "[MongoIndex] Dropped LocationReadings index {IndexName}.",
+                    indexName);
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(
+                    ex,
+                    "[MongoIndex] Could not drop LocationReadings index {IndexName}.",
+                    indexName);
+            }
+        }
+
+        var legacyIndexes =
+            await (await readings.Indexes.ListAsync()).ToListAsync();
+
+        // Xóa unique legacy SerialNumber + DateUtc.
+        // Index này không an toàn khi nhiều team có serial trùng nhau.
+        foreach (var legacy in legacyIndexes.Where(x =>
+                     string.Equals(
+                         GetIndexName(x),
+                         "ux_serial_date",
+                         StringComparison.Ordinal)))
+        {
+            await DropIndexSafeAsync(
+                readings,
+                GetIndexName(legacy)!,
+                app.Logger);
+        }
+
+        var expectedUniqueLower = new MongoDB.Bson.BsonDocument
+        {
+            { "teamId", 1 },
+            { "serialNumber", 1 },
+            { "dateUtc", 1 }
+        };
+
+        var expectedUniquePascal = new MongoDB.Bson.BsonDocument
+        {
+            { "TeamId", 1 },
+            { "SerialNumber", 1 },
+            { "DateUtc", 1 }
+        };
+
+        var indexes =
+            await (await readings.Indexes.ListAsync()).ToListAsync();
+
+        var sameUniqueKeyIndexes = indexes
+            .Where(x => SameIndexKey(
+                x,
+                expectedUniqueLower,
+                expectedUniquePascal))
+            .ToList();
+
+        if (!sameUniqueKeyIndexes.Any(IsUniqueIndex))
+        {
+            // Nếu đang có cùng key nhưng non-unique, phải drop trước khi tạo unique.
+            foreach (var existing in sameUniqueKeyIndexes)
+            {
+                var existingName = GetIndexName(existing);
+
+                if (!string.IsNullOrWhiteSpace(existingName))
                 {
-                    matches = false;
-                    break;
+                    await DropIndexSafeAsync(
+                        readings,
+                        existingName,
+                        app.Logger);
                 }
             }
 
-            if (matches)
-                return true;
+            await readings.Indexes.CreateOneAsync(
+                new CreateIndexModel<LocationReading>(
+                    Builders<LocationReading>.IndexKeys
+                        .Ascending(x => x.TeamId)
+                        .Ascending(x => x.SerialNumber)
+                        .Ascending(x => x.DateUtc),
+                    new CreateIndexOptions
+                    {
+                        Name = "ux_team_serial_date",
+                        Unique = true,
+                        Background = true
+                    }));
+
+            app.Logger.LogInformation(
+                "[MongoIndex] Created ux_team_serial_date.");
         }
-
-        return false;
-    }
-
-    static async Task DropIndexSafeAsync(
-        IMongoCollection<LocationReading> collection,
-        string indexName,
-        ILogger logger)
-    {
-        if (string.IsNullOrWhiteSpace(indexName)
-            || string.Equals(indexName, "_id_", StringComparison.Ordinal))
+        else
         {
-            return;
+            app.Logger.LogInformation(
+                "[MongoIndex] LocationReadings unique team/serial/date index already exists. Existing={Indexes}",
+                string.Join(
+                    ",",
+                    sameUniqueKeyIndexes.Select(GetIndexName)));
         }
 
-        try
+        var expectedQueryLower = new MongoDB.Bson.BsonDocument
         {
-            await collection.Indexes.DropOneAsync(indexName);
+            { "teamId", 1 },
+            { "serialNumber", 1 },
+            { "dateUtc", -1 }
+        };
 
-            logger.LogWarning(
-                "[MongoIndex] Dropped LocationReadings index {IndexName}.",
-                indexName);
-        }
-        catch (Exception ex)
+        var expectedQueryPascal = new MongoDB.Bson.BsonDocument
         {
-            logger.LogWarning(
-                ex,
-                "[MongoIndex] Could not drop LocationReadings index {IndexName}.",
-                indexName);
-        }
-    }
+            { "TeamId", 1 },
+            { "SerialNumber", 1 },
+            { "DateUtc", -1 }
+        };
 
-    var legacyIndexes =
-        await (await readings.Indexes.ListAsync()).ToListAsync();
+        indexes = await (await readings.Indexes.ListAsync()).ToListAsync();
 
-    // Xóa unique legacy SerialNumber + DateUtc.
-    // Index này không an toàn khi nhiều team có serial trùng nhau.
-    foreach (var legacy in legacyIndexes.Where(x =>
-                 string.Equals(
-                     GetIndexName(x),
-                     "ux_serial_date",
-                     StringComparison.Ordinal)))
-    {
-        await DropIndexSafeAsync(
-            readings,
-            GetIndexName(legacy)!,
-            app.Logger);
-    }
-
-    var expectedUniqueLower = new MongoDB.Bson.BsonDocument
-    {
-        { "teamId", 1 },
-        { "serialNumber", 1 },
-        { "dateUtc", 1 }
-    };
-
-    var expectedUniquePascal = new MongoDB.Bson.BsonDocument
-    {
-        { "TeamId", 1 },
-        { "SerialNumber", 1 },
-        { "DateUtc", 1 }
-    };
-
-    var indexes =
-        await (await readings.Indexes.ListAsync()).ToListAsync();
-
-    var sameUniqueKeyIndexes = indexes
-        .Where(x => SameIndexKey(
-            x,
-            expectedUniqueLower,
-            expectedUniquePascal))
-        .ToList();
-
-    if (!sameUniqueKeyIndexes.Any(IsUniqueIndex))
-    {
-        // Nếu đang có cùng key nhưng non-unique, phải drop trước khi tạo unique.
-        foreach (var existing in sameUniqueKeyIndexes)
+        if (!indexes.Any(x => SameIndexKey(
+                x,
+                expectedQueryLower,
+                expectedQueryPascal)))
         {
-            var existingName = GetIndexName(existing);
+            await readings.Indexes.CreateOneAsync(
+                new CreateIndexModel<LocationReading>(
+                    Builders<LocationReading>.IndexKeys
+                        .Ascending(x => x.TeamId)
+                        .Ascending(x => x.SerialNumber)
+                        .Descending(x => x.DateUtc),
+                    new CreateIndexOptions
+                    {
+                        Name = "ix_team_serial_date_desc",
+                        Background = true
+                    }));
 
-            if (!string.IsNullOrWhiteSpace(existingName))
-            {
-                await DropIndexSafeAsync(
-                    readings,
-                    existingName,
-                    app.Logger);
-            }
+            app.Logger.LogInformation(
+                "[MongoIndex] Created ix_team_serial_date_desc.");
         }
-
-        await readings.Indexes.CreateOneAsync(
-            new CreateIndexModel<LocationReading>(
-                Builders<LocationReading>.IndexKeys
-                    .Ascending(x => x.TeamId)
-                    .Ascending(x => x.SerialNumber)
-                    .Ascending(x => x.DateUtc),
-                new CreateIndexOptions
-                {
-                    Name = "ux_team_serial_date",
-                    Unique = true,
-                    Background = true
-                }));
-
-        app.Logger.LogInformation(
-            "[MongoIndex] Created ux_team_serial_date.");
+        else
+        {
+            app.Logger.LogInformation(
+                "[MongoIndex] LocationReadings team/serial/date-desc index already exists.");
+        }
     }
-    else
+    catch (Exception ex)
     {
-        app.Logger.LogInformation(
-            "[MongoIndex] LocationReadings unique team/serial/date index already exists. Existing={Indexes}",
-            string.Join(
-                ",",
-                sameUniqueKeyIndexes.Select(GetIndexName)));
+        // Không chặn app khởi động, nhưng log rõ để xử lý duplicate data/index.
+        app.Logger.LogError(
+            ex,
+            "[MongoIndex] LocationReadings bootstrap failed. Detail={Detail}",
+            ex.ToString());
     }
 
-    var expectedQueryLower = new MongoDB.Bson.BsonDocument
-    {
-        { "teamId", 1 },
-        { "serialNumber", 1 },
-        { "dateUtc", -1 }
-    };
-
-    var expectedQueryPascal = new MongoDB.Bson.BsonDocument
-    {
-        { "TeamId", 1 },
-        { "SerialNumber", 1 },
-        { "DateUtc", -1 }
-    };
-
-    indexes = await (await readings.Indexes.ListAsync()).ToListAsync();
-
-    if (!indexes.Any(x => SameIndexKey(
-            x,
-            expectedQueryLower,
-            expectedQueryPascal)))
-    {
-        await readings.Indexes.CreateOneAsync(
-            new CreateIndexModel<LocationReading>(
-                Builders<LocationReading>.IndexKeys
-                    .Ascending(x => x.TeamId)
-                    .Ascending(x => x.SerialNumber)
-                    .Descending(x => x.DateUtc),
-                new CreateIndexOptions
-                {
-                    Name = "ix_team_serial_date_desc",
-                    Background = true
-                }));
-
-        app.Logger.LogInformation(
-            "[MongoIndex] Created ix_team_serial_date_desc.");
-    }
-    else
-    {
-        app.Logger.LogInformation(
-            "[MongoIndex] LocationReadings team/serial/date-desc index already exists.");
-    }
 }
-catch (Exception ex)
+else
 {
-    // Không chặn app khởi động, nhưng log rõ để xử lý duplicate data/index.
-    app.Logger.LogError(
-        ex,
-        "[MongoIndex] LocationReadings bootstrap failed. Detail={Detail}",
-        ex.ToString());
+    app.Logger.LogWarning("[WorkerMode] ApiOnly: bỏ qua khởi tạo SMS/index và các worker định kỳ. Không dùng để ghi dữ liệu production.");
 }
 
 if (!app.Environment.IsDevelopment())
@@ -832,5 +875,14 @@ app.MapHub<LogTagHub>("/hub/logtag")
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapGet("/health", () =>
+{
+    return Results.Ok(new
+    {
+        status = "ok",
+        service = "logtag-api",
+        utc = DateTime.UtcNow
+    });
+});
 
 app.Run();

@@ -1,12 +1,25 @@
-**/bin
-**/obj
+**/bin/
+**/obj/
 
-.git
-.vs
-.vscode
-.idea
+.git/
+.github/
+
+.vs/
+.vscode/
+.idea/
 
 *.user
 *.suo
 
-node_modules
+.env
+.env.*
+!.env.example
+
+appsettings.Development.json
+
+node_modules/
+
+Dockerfile*
+docker-compose*.yml
+
+README.md

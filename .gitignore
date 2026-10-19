@@ -32,3 +32,27 @@ logs/
 # SYSTEM
 .DS_Store
 Thumbs.db
+
+# .NET Build
+**/bin/
+**/obj/
+**/out/
+
+# Visual Studio
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Local settings
+**/appsettings.Development.json
+
+# Logs
+*.log
+logs/
